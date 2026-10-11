@@ -167,7 +167,7 @@
 
   /* Diskret fade-in ved scroll */
   if (!reduceMotion && 'IntersectionObserver' in window) {
-    const targets = $$('.section-head, .t-card, .ba, .steps__item, .member, .price-card, .value, .zo__grid > *, .cta-band__inner > *, .intro__grid > *');
+    const targets = $$('.section-head, .ba, .steps__item, .member, .price-card, .value, .zo__grid > *, .cta-band__inner > *, .intro__grid > *');
     targets.forEach((t) => t.classList.add('reveal'));
     const io = new IntersectionObserver(
       (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } }),

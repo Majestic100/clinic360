@@ -212,8 +212,8 @@ export function trustBar() {
   </section>`;
 }
 
-export function treatmentCard(t, { sizes = '(min-width: 1100px) 30vw, (min-width: 640px) 45vw, 90vw' } = {}) {
-  return `<article class="t-card" data-tag="${t.category}">
+export function treatmentCard(t, { sizes = '(min-width: 1100px) 30vw, (min-width: 640px) 45vw, 64px', extra = false } = {}) {
+  return `<article class="t-card${extra ? ' t-card--extra' : ''}" data-tag="${t.category}">
     <a href="${url(t.slug + '/')}" class="t-card__link">
       <div class="t-card__media">${img(t.img, { alt: '', sizes })}</div>
       <div class="t-card__body">

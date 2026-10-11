@@ -752,3 +752,26 @@ body.menu-open .action-bar { display: none; }
 
 /* Honeypot mod spam (skjult for mennesker, ikke for robotter) */
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+/* Behandlinger på mobil: kompakt liste (billede, navn og fra-pris på én linje), så alle kan ses på én gang */
+.mobile-only { display: none; }
+@media (max-width: 639px) {
+  .mobile-only { display: flex; }
+  .section-head__action { display: none; }
+  .section-head { margin-bottom: 20px; }
+  .t-grid { gap: 0; background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+  .t-card { border-radius: 0; box-shadow: none; background: none; }
+  .t-card:hover { transform: none; box-shadow: none; }
+  .t-card + .t-card { border-top: 1px solid var(--line); }
+  .t-card__link { flex-direction: row; align-items: center; gap: 14px; padding: 10px 14px 10px 10px; min-height: 76px; }
+  .t-card__media { width: 56px; height: 56px; aspect-ratio: auto; flex: none; border-radius: 12px; }
+  .t-card__body { padding: 0; flex-direction: row; align-items: center; gap: 12px; min-width: 0; }
+  .t-card__title { font-size: 1.3rem; margin: 0; flex: 1; min-width: 0; }
+  .t-card__text { display: none; }
+  .t-card__meta { margin: 0; padding: 0; border: 0; gap: 10px; white-space: nowrap; font-size: 0.9rem; }
+  .t-card__arrow { width: 28px; height: 28px; background: none; }
+  .t-card:hover .t-card__arrow { background: none; color: var(--ink); }
+  .t-card .t-card__media img { transition: none; }
+  .t-card:hover .t-card__media img { transform: none; }
+}
+@media (min-width: 640px) { .t-card--extra { display: none; } }

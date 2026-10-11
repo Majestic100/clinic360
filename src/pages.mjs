@@ -141,8 +141,12 @@ ${trustBar()}
 
 <section class="section section--tint">
   <div class="container">
-    ${sectionHead({ eyebrow: 'Behandlinger', title: 'Udvalgte behandlinger', lead: 'Fra blød rynkebehandling til medicinsk hudpleje. Alle priser står tydeligt, så du ved, hvad du går ind til.', action: btn('Se alle 10 behandlinger', url('behandlinger/'), { variant: 'outline', icon: icon.arrow }) })}
-    <div class="t-grid">${featured.map((t) => treatmentCard(t)).join('')}</div>
+    ${sectionHead({ eyebrow: 'Behandlinger', title: 'Udvalgte behandlinger', lead: 'Fra blød rynkebehandling til medicinsk hudpleje. Alle priser står tydeligt.', action: btn('Se alle 10 behandlinger', url('behandlinger/'), { variant: 'outline', icon: icon.arrow }) })}
+    <div class="t-grid t-grid--home">${featured.map((t) => treatmentCard(t)).join('')}${treatments
+      .filter((t) => !featured.includes(t))
+      .map((t) => treatmentCard(t, { extra: true }))
+      .join('')}</div>
+    <div class="btn-row mobile-only">${btn('Se alle priser', url('priser/'), { variant: 'outline' })}</div>
   </div>
 </section>
 
