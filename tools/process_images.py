@@ -58,6 +58,17 @@ BEFORE_AFTER = {
     "ba-ansigt-7": ("2024_07_WhatsApp-Image-2024-07-22-at-23.05.08.jpeg", "lr"),
 }
 
+# Brede bannere (1920x520) fra den gamle side, bruges som baggrund bag tekst i sidehoveder
+BANNERS = {
+    "bg-team": "2024_10_Design-uden-navn-18.png",
+    "bg-team-wall": "2024_10_Design-uden-navn-25.png",
+    "bg-consult": "2024_10_Design-uden-navn-27.png",
+    "bg-talk": "2024_09_Design-uden-navn-8.png",
+    "bg-skin": "2024_10_Design-uden-navn-23.png",
+    "bg-shelf": "2024_10_Design-uden-navn-9.png",
+    "bg-shelf-2": "2025_08_Fjord-Forsikring-I-Konkurrence-ads-14.png",
+}
+
 LOGOS = {
     "logo-light": "2024_07_Clinic-360-2.png",
     "logo-dark": "2024_07_Transparent-baggrund-e1721669573306.png",
@@ -103,6 +114,11 @@ for name, (src, mode) in BEFORE_AFTER.items():
         halves = [crop_ratio(x, 4 / 5, 0.5) for x in halves]
     for label, half in zip(["foer", "efter"], halves):
         save(half, f"{name}-{label}", 640, q=80)
+
+for name, src in BANNERS.items():
+    im = Image.open(os.path.join(SRC, src)).convert("RGB")
+    for w in [1200, 1920]:
+        save(im, name, w, q=80)
 
 for name, src in LOGOS.items():
     im = Image.open(os.path.join(SRC, src)).convert("RGBA")

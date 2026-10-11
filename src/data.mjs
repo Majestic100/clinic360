@@ -27,12 +27,12 @@ export const site = {
 export const rating = { score: '4,5', count: 17, label: 'Fremragende' };
 
 export const hours = [
-  { day: 'Mandag', time: '8.30 – 15.00', dow: 1 },
-  { day: 'Tirsdag', time: '8.30 – 19.00', dow: 2 },
-  { day: 'Onsdag', time: '8.30 – 15.00', dow: 3 },
-  { day: 'Torsdag', time: '8.30 – 16.00', dow: 4 },
-  { day: 'Fredag', time: '8.30 – 13.00', dow: 5 },
-  { day: 'Lørdag – søndag', time: 'Lukket', dow: [6, 0] },
+  { day: 'Mandag', time: '8.30-15.00', dow: 1 },
+  { day: 'Tirsdag', time: '8.30-19.00', dow: 2 },
+  { day: 'Onsdag', time: '8.30-15.00', dow: 3 },
+  { day: 'Torsdag', time: '8.30-16.00', dow: 4 },
+  { day: 'Fredag', time: '8.30-13.00', dow: 5 },
+  { day: 'Lørdag og søndag', time: 'Lukket', dow: [6, 0] },
 ];
 
 export const categories = [
@@ -49,13 +49,13 @@ export const treatments = [
     category: 'injektion',
     img: 'consultation-mature',
     short: 'Blødgør mimiske rynker i panden, mellem brynene og ved øjnene.',
-    headline: 'Bevar det friske og <em>åbne</em> udtryk',
+    headline: 'Bevar det friske og åbne udtryk',
     lead: 'Botox reducerer diskret synligheden af mimiske rynker, så du ser udhvilet ud, uden at dine nærmeste kan se, at du har fået en behandling.',
     discount: 10,
     facts: [
       ['Forundersøgelse', 'Online hos speciallæge, kun første gang'],
       ['Betænkningstid', '48 timer (lovkrav)'],
-      ['Effekt', 'Gradvist over 2–10 dage, endeligt efter 14 dage'],
+      ['Effekt', 'Gradvist over 2-10 dage, endeligt efter 14 dage'],
       ['Kontrol', 'Tilbydes altid efter 14 dage'],
     ],
     body: [
@@ -73,7 +73,7 @@ export const treatments = [
       { t: 'Forundersøgelse hos læge', d: 'Botox er et lægemiddel. Derfor vurderer vores speciallæge først din situation og dit helbred ved en online forkonsultation. Det er kun nødvendigt én gang hos Clinic360.' },
       { t: '48 timers betænkningstid', d: 'Efter forundersøgelsen er der en lovpligtig betænkningstid på 48 timer, før behandlingen må udføres.' },
       { t: 'Behandlingen', d: 'Huden renses omhyggeligt, og botox injiceres med en fin, tynd nål direkte i de relevante muskler.' },
-      { t: 'Kontrol efter 14 dage', d: 'Effekten indtræder over 2–10 dage. Efter 14 dage ses det endelige resultat, og vi tilbyder altid en kontrol.' },
+      { t: 'Kontrol efter 14 dage', d: 'Effekten indtræder over 2-10 dage. Efter 14 dage ses det endelige resultat, og vi tilbyder altid en kontrol.' },
     ],
     prices: [
       {
@@ -94,7 +94,7 @@ export const treatments = [
     category: 'injektion',
     img: 't-filler',
     short: 'Genskaber tabt volumen og former læber, kinder, hage og furer.',
-    headline: 'Genskab volumen med et <em>naturligt</em> resultat',
+    headline: 'Genskab volumen med et naturligt resultat',
     lead: 'Med ikke-permanente fillers genopbygger vi tabt volumen, mindsker rynker og forbedrer hudens fugt, så du stadig ser ud som dig selv, bare mere udhvilet.',
     discount: 10,
     facts: [
@@ -149,7 +149,7 @@ export const treatments = [
     category: 'injektion',
     img: 't-skinbooster',
     short: 'Dybdevirkende fugt, der giver glat, fast og glødende hud.',
-    headline: 'Fugt og glød <em>indefra</em>',
+    headline: 'Fugt og glød indefra',
     lead: 'Skinbooster tilfører huden dybdevirkende fugt med hyaluronsyre og glycerol. Huden bliver glattere, fastere og får sin naturlige glød tilbage.',
     discount: 10,
     facts: [
@@ -198,14 +198,14 @@ export const treatments = [
     category: 'injektion',
     img: 't-profhilo',
     short: 'Biostimulator, der strammer op og giver løs hud ny spændstighed.',
-    headline: 'Genvind elasticitet og <em>spændstighed</em>',
+    headline: 'Genvind elasticitet og spændstighed',
     lead: 'Profhilo stimulerer hudens egen produktion af kollagen og giver over tid en naturlig opstramning af løs og rynket hud i ansigt, på hals og krop.',
     discount: 10,
     facts: [
       ['Forundersøgelse', 'Gratis hos specialsygeplejerske'],
       ['Betænkningstid', '48 timer (lovkrav)'],
       ['Forløb', '2 behandlinger med 4 ugers mellemrum'],
-      ['Vedligehold', 'Årligt eller hver 6.–8. måned'],
+      ['Vedligehold', 'Årligt eller hver 6.-8. måned'],
     ],
     body: [
       {
@@ -221,8 +221,8 @@ export const treatments = [
     steps: [
       { t: 'Gratis forundersøgelse', d: 'Hos en af klinikkens specialsygeplejersker, hvor du bliver rådgivet om behandlingen.' },
       { t: '48 timers betænkningstid', d: 'Du kan booke behandlingen umiddelbart efter forundersøgelsen.' },
-      { t: 'To behandlinger', d: 'Væsken injiceres i bestemte punkter og fordeler sig selv jævnt i ugerne efter. Små buler udjævnes på 12–48 timer.' },
-      { t: 'Resultatet', d: 'Efter 3–4 uger ses en forskel i hudkvalitet. Den optimale effekt opnås efter 2. behandling.' },
+      { t: 'To behandlinger', d: 'Væsken injiceres i bestemte punkter og fordeler sig selv jævnt i ugerne efter. Små buler udjævnes på 12-48 timer.' },
+      { t: 'Resultatet', d: 'Efter 3-4 uger ses en forskel i hudkvalitet. Den optimale effekt opnås efter 2. behandling.' },
     ],
     prices: [
       {
@@ -237,18 +237,18 @@ export const treatments = [
   },
   {
     slug: 'pfr-hud',
-    name: 'PRF – hud',
+    name: 'PRF til huden',
     category: 'injektion',
     img: 't-prf-hud',
     short: '100 % biologisk hudforyngelse med kroppens egne vækstfaktorer.',
-    headline: 'Hudforyngelse med <em>dine egne</em> celler',
+    headline: 'Hudforyngelse med dine egne celler',
     lead: 'PRF (Platelet Rich Fibrin) aktiverer hudens evne til at forny sig selv med kroppens egne vækstfaktorer. Helt uden kunstige tilsætningsstoffer.',
     discount: 10,
     facts: [
       ['Forundersøgelse', 'Hos sygeplejerske, behandling samme dag'],
       ['Forløb', '3 behandlinger med ca. 4 ugers mellemrum'],
-      ['Resultat', 'Udvikler sig over 2–3 måneder'],
-      ['Holdbarhed', 'Typisk 12–18 måneder'],
+      ['Resultat', 'Udvikler sig over 2-3 måneder'],
+      ['Holdbarhed', 'Typisk 12-18 måneder'],
     ],
     body: [
       {
@@ -300,25 +300,25 @@ export const treatments = [
     faq: [
       { q: 'Hvad er en PRF-hudbehandling?', a: 'PRF står for Platelet Rich Fibrin. Vi udvinder dine egne blodplader og vækstfaktorer fra en lille mængde blod. De stimulerer hudens egen produktion af kollagen og elastin og giver en sundere, fastere og mere glødende hud.' },
       { q: 'Hvordan foregår behandlingen?', a: 'Vi tager en lille mængde blod fra din arm. Blodet centrifugeres, og PRF injiceres derefter med små stik i det ønskede område. Behandlingen er skånsom og kræver minimal nedetid.' },
-      { q: 'Hvor længe holder resultatet?', a: 'Resultatet udvikler sig over 2–3 måneder, efterhånden som huden danner nyt kollagen. Effekten holder typisk 12–18 måneder, afhængigt af hud, livsstil og antal behandlinger. Effekten kan vedligeholdes med 1–2 behandlinger om året.' },
+      { q: 'Hvor længe holder resultatet?', a: 'Resultatet udvikler sig over 2-3 måneder, efterhånden som huden danner nyt kollagen. Effekten holder typisk 12-18 måneder, afhængigt af hud, livsstil og antal behandlinger. Effekten kan vedligeholdes med 1-2 behandlinger om året.' },
     ],
     results: [],
     related: ['skinpen', 'pfr-har', 'skinbooster'],
   },
   {
     slug: 'pfr-har',
-    name: 'PRF – hår',
+    name: 'PRF mod hårtab',
     category: 'krop',
     img: 't-prf-har',
     short: 'Naturlig stimulering af hårvækst ved begyndende hårtab.',
-    headline: 'Naturlig stimulering af <em>hårvækst</em>',
+    headline: 'Naturlig stimulering af hårvækst',
     lead: 'Oplever du begyndende hårtab eller tyndere hår? PRF bruger kroppens egne vækstfaktorer til at stimulere hårsækkene og understøtte ny hårvækst.',
     discount: 10,
     facts: [
       ['Velegnet til', 'Både mænd og kvinder'],
-      ['Forløb', '3–6 behandlinger med 4–6 ugers interval'],
-      ['Resultat', 'Ses ofte efter 2–3 måneder'],
-      ['Vedligehold', '1–2 behandlinger om året'],
+      ['Forløb', '3-6 behandlinger med 4-6 ugers interval'],
+      ['Resultat', 'Ses ofte efter 2-3 måneder'],
+      ['Vedligehold', '1-2 behandlinger om året'],
     ],
     body: [
       {
@@ -338,8 +338,8 @@ export const treatments = [
     prices: [{ rows: [{ label: 'Hårvækst', price: 2200, from: true }] }],
     faq: [
       { q: 'Hvad er PRF mod hårtab?', a: 'En naturlig behandling, hvor vi bruger dine egne blodplader og vækstfaktorer til at stimulere hårsækkene. Det kan øge blodtilførslen, forbedre næringen til hårsækkene og dermed fremme hårvækst og styrke eksisterende hår.' },
-      { q: 'Hvor lang tid går der, før jeg ser resultater?', a: 'De fleste oplever, at håret føles stærkere og tykkere efter 2–3 behandlinger. Ny hårvækst ses typisk efter 3–6 måneder.' },
-      { q: 'Hvor længe holder resultatet?', a: 'Det varierer fra person til person, men mange oplever en langvarig forbedring, især med opfølgende behandlinger 1–2 gange om året.' },
+      { q: 'Hvor lang tid går der, før jeg ser resultater?', a: 'De fleste oplever, at håret føles stærkere og tykkere efter 2-3 behandlinger. Ny hårvækst ses typisk efter 3-6 måneder.' },
+      { q: 'Hvor længe holder resultatet?', a: 'Det varierer fra person til person, men mange oplever en langvarig forbedring, især med opfølgende behandlinger 1-2 gange om året.' },
       { q: 'Hvad koster behandlingen?', a: 'PRF til hårvækst koster fra 2.200 kr.' },
     ],
     results: [],
@@ -351,7 +351,7 @@ export const treatments = [
     category: 'hud',
     img: 't-peeling',
     short: 'Medicinsk peeling mod akne, pigmentering, porer og fine linjer.',
-    headline: 'Forny huden med <em>medicinsk</em> peeling',
+    headline: 'Forny huden med medicinsk peeling',
     lead: 'En medicinsk peeling stimulerer cellefornyelsen og kan målrettes fine linjer, ujævn hudtone, store porer, pigmentering og akne.',
     discount: 10,
     facts: [
@@ -398,14 +398,14 @@ export const treatments = [
     category: 'hud',
     img: 't-skinpen',
     short: 'Microneedling, der booster kollagen mod ar, porer og pigmentering.',
-    headline: 'Boost hudens eget <em>kollagen</em>',
+    headline: 'Boost hudens eget kollagen',
     lead: 'Skinpen er en prisvindende microneedling-metode, der stimulerer huden til selv at danne nyt kollagen og giver en jævn og naturlig hudstruktur.',
     discount: 10,
     facts: [
       ['Bedøvelse', 'Lokal bedøvende creme efter ønske'],
-      ['Nåledybde', '0,25–2,5 mm'],
+      ['Nåledybde', '0,25-2,5 mm'],
       ['Rødme', 'Aftager efter ca. 4 timer'],
-      ['Helt væk', 'Efter 12–14 timer'],
+      ['Helt væk', 'Efter 12-14 timer'],
     ],
     body: [
       {
@@ -420,7 +420,7 @@ export const treatments = [
     steps: [
       { t: 'Før-billede', d: 'Din behandling starter med et før-billede, så vi kan følge resultatet.' },
       { t: 'Rens og bedøvelse', d: 'Huden afrenses, og du kan få lokal bedøvende creme.' },
-      { t: 'Microneedling', d: 'Skinpen arbejder i en dybde på 0,25–2,5 mm sammen med et aktivt serum.' },
+      { t: 'Microneedling', d: 'Skinpen arbejder i en dybde på 0,25-2,5 mm sammen med et aktivt serum.' },
     ],
     prices: [
       {
@@ -440,7 +440,7 @@ export const treatments = [
     category: 'hud',
     img: 't-hydrafacial',
     short: 'Rens, eksfoliering og intens fugt i én behandling.',
-    headline: 'Smuk og sund hud med <em>HydraFacial</em>',
+    headline: 'Smuk og sund hud med HydraFacial',
     lead: 'HydraFacial kombinerer rensning, eksfoliering, dybderens og fugt i én skånsom behandling, der efterlader huden strålende og forynget.',
     discount: 10,
     facts: [
@@ -487,12 +487,12 @@ export const treatments = [
     category: 'krop',
     img: 't-fedtfrysning',
     short: 'Reducér genstridige fedtdepoter og stram huden op.',
-    headline: 'Slip af med <em>genstridigt</em> fedt',
+    headline: 'Slip af med genstridigt fedt',
     lead: 'Fedtfrysning er en skånsom behandling til fedtdepoter, der ikke forsvinder med træning og kost. Op til en tredjedel af det behandlede fedtvæv kan forsvinde.',
     discount: 20,
     facts: [
       ['Første resultater', 'Efter ca. 4 uger'],
-      ['80 % af resultatet', 'Efter 3–4 uger'],
+      ['80 % af resultatet', 'Efter 3-4 uger'],
       ['Områder', 'Mave, BH-delle, arme, mandebryster'],
       ['Velkomsttilbud', '20 % rabat'],
     ],
@@ -549,24 +549,23 @@ export const resultTags = [
   { id: 'hud', name: 'Hud', slug: null },
 ];
 
-// Anmeldelser fra Trustpilot. Lange anmeldelser er forkortet (markeret med …).
+// Anmeldelser fra Trustpilot, forkortet til korte uddrag (maks. ca. 3 linjer).
 export const reviews = [
-  { name: 'Line', date: '9. sep. 2024', title: 'Fantastisk oplevelse og professionelle behandlinger', text: 'Pigerne er super venlige og imødekommende lige fra man træder ind af døren! Der blev virkelig taget sig god tid til at forstå mine behov, ønsker og bekymringer. Mette var utrolig dygtig og forklarede grundigt processen, så jeg følte mig tryg og velinformeret hele vejen igennem. Resultaterne af min behandling oversteg alle mine forventninger.', featured: true },
-  { name: 'Rikke', date: '14. nov. 2025', title: 'Kompetent og erfarent personale – tryghed og flotte resultater!', text: 'Mette og Ditte er dygtige og erfarne. Jeg har følt mig i de absolut bedste hænder hver gang, jeg har besøgt deres klinik. …' },
-  { name: 'Bente', date: '9. sep. 2024', title: 'Super grundig og ærlig vejledning!', text: 'Resultaterne er meget naturlige og præcis, som jeg havde håbet! Man mærker tydeligt, at de ikke går på kompromis med både kvaliteten af produkter og sikkerhed – hvilket gør behandlingen til en meget tryg og virkelig god oplevelse!' },
-  { name: 'Christina Stampe', date: '3. dec. 2024', title: 'Ærligt og dygtigt personale, som lytter til ens ønsker', text: 'Jeg har fået tre behandlinger med Skinpen pga. solskader og pigmenter i ansigtet. Det har givet synlige resultater med det samme, og kombinationen af behandlinger og produkter fra ZO Skin Health har gjort, at jeg har fået den hud, jeg ikke turde drømme om.' },
-  { name: 'Jessie', date: '2. jun. 2026', title: 'Altid pænt naturligt resultat', text: 'Det er altid en positiv oplevelse at få udført behandlinger hos Mette. …' },
-  { name: 'Claus Nielsen', date: '11. mar. 2026', title: 'PRF-behandlinger mod hårtab', text: 'Jeg har fået PRF-behandlinger mod hårtab hos klinikken, og jeg er meget glad for både forløbet og resultatet. …' },
-  { name: 'Dorte Andreasen', date: '18. feb. 2025', title: 'Læber', text: 'Har fået filler i mine læber, det så flot et resultat, og ser stadigvæk naturligt ud 🤗' },
-  { name: 'Malene Paulsen', date: '3. dec. 2024', title: 'Behagelig og skøn klinik!', text: 'Man kan tydeligt mærke deres professionelle tilgang til behandlingerne. Jeg er meget tilfreds med mit naturlige resultat.' },
-  { name: 'Susan', date: '30. jan. 2025', title: 'Første besøg, og jeg kommer helt klart igen', text: 'Professionelle, meget dygtige og imødekommende. Jeg er fan ✨' },
-  { name: 'Susanne', date: '5. feb. 2025', title: 'Super sødt og professionelt personale', text: 'Har fået god behandling og rådgivning. Jeg kommer gerne igen 👍' },
+  { name: 'Line', date: '9. sep. 2024', topic: 'Kunde', text: 'Mette var utrolig dygtig og forklarede grundigt processen, så jeg følte mig tryg og velinformeret hele vejen igennem.', featured: true },
+  { name: 'Rikke', date: '14. nov. 2025', topic: 'Kunde', text: 'Mette og Ditte er dygtige og erfarne. Jeg har følt mig i de absolut bedste hænder hver gang, jeg har besøgt deres klinik.' },
+  { name: 'Bente', date: '9. sep. 2024', topic: 'Kunde', text: 'Resultaterne er meget naturlige og præcis, som jeg havde håbet!' },
+  { name: 'Christina Stampe', date: '3. dec. 2024', topic: 'Skinpen og ZO Skin Health', text: 'Jeg har fået tre behandlinger med Skinpen pga. solskader og pigmenter i ansigtet. Det har givet synlige resultater med det samme.' },
+  { name: 'Claus Nielsen', date: '11. mar. 2026', topic: 'PRF mod hårtab', text: 'Jeg har fået PRF-behandlinger mod hårtab hos klinikken, og jeg er meget glad for både forløbet og resultatet.' },
+  { name: 'Dorte Andreasen', date: '18. feb. 2025', topic: 'Filler i læberne', text: 'Har fået filler i mine læber, det så flot et resultat, og ser stadigvæk naturligt ud.' },
+  { name: 'Jessie', date: '2. jun. 2026', topic: 'Kunde', text: 'Det er altid en positiv oplevelse at få udført behandlinger hos Mette.' },
+  { name: 'Malene Paulsen', date: '3. dec. 2024', topic: 'Kunde', text: 'Man kan tydeligt mærke deres professionelle tilgang til behandlingerne. Jeg er meget tilfreds med mit naturlige resultat.' },
+  { name: 'Susan', date: '30. jan. 2025', topic: 'Første besøg', text: 'Professionelle, meget dygtige og imødekommende.' },
 ];
 
 export const team = [
   {
     name: 'Mette Appel',
-    role: 'Indehaver · Kosmetisk specialsygeplejerske',
+    role: 'Indehaver og kosmetisk specialsygeplejerske',
     img: 'mette',
     bio: [
       'Jeg er uddannet sygeplejerske med klinisk erfaring fra intensivafdelingen på Sønderborg Sygehus.',
@@ -576,7 +575,7 @@ export const team = [
   },
   {
     name: 'Ditte B. R. Thordsen',
-    role: 'Indehaver · Kosmetisk specialsygeplejerske',
+    role: 'Indehaver og kosmetisk specialsygeplejerske',
     img: 'ditte',
     bio: [
       'Jeg er uddannet sygeplejerske og har flere års klinisk erfaring fra Dialysen og Medicinsk Modtagelse på Sønderborg Sygehus.',

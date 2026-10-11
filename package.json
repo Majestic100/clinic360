@@ -1,0 +1,11 @@
+{
+  "name": "clinic360",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "devDependencies": {
+    "@phosphor-icons/core": "2.1.1"
+  }
+}

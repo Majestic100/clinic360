@@ -4,16 +4,17 @@
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* Header: kant ved scroll + mobil handlingsbar */
+  /* Header-kant og mobil genvejsbjælke styres af IntersectionObserver (ingen scroll-lytter) */
   const header = $('[data-header]');
   const bar = $('.action-bar');
-  const onScroll = () => {
-    const y = window.scrollY;
-    header?.classList.toggle('is-scrolled', y > 8);
-    bar?.classList.toggle('is-visible', y > 420);
-  };
-  onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
+  if ('IntersectionObserver' in window) {
+    const sentinel = document.createElement('div');
+    sentinel.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:8px;pointer-events:none';
+    document.body.prepend(sentinel);
+    new IntersectionObserver(([e]) => header?.classList.toggle('is-scrolled', !e.isIntersecting)).observe(sentinel);
+    const hero = $('[data-hero]') || $('main > section');
+    if (hero && bar) new IntersectionObserver(([e]) => bar.classList.toggle('is-visible', !e.isIntersecting)).observe(hero);
+  }
 
   /* Mobilmenu */
   const menuBtn = $('[data-menu-toggle]');
@@ -120,18 +121,21 @@
     if (row.dataset.dow.split(',').map(Number).includes(today)) row.classList.add('is-today');
   });
 
-  /* Kontaktformular */
+  /* Kontaktformular: fejl vises under det enkelte felt */
   const form = $('[data-contact-form]');
   if (form) {
     const status = $('.form__status', form);
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      status.textContent = '';
       status.classList.remove('is-error');
-      const invalid = $$('[required]', form).filter((f) => !f.checkValidity());
-      $$('.is-invalid', form).forEach((f) => f.classList.remove('is-invalid'));
+      const required = $$('[required]', form);
+      required.forEach((f) => f.closest('.field, .consent')?.classList.toggle('is-invalid', !f.checkValidity()));
+      const invalid = required.filter((f) => !f.checkValidity());
       if (invalid.length) {
-        invalid.forEach((f) => f.classList.add('is-invalid'));
-        status.textContent = 'Udfyld venligst de markerede felter og accepter privatlivspolitikken.';
+        status.textContent = invalid.some((f) => f.name === 'samtykke') && invalid.length === 1
+          ? 'Sæt flueben for at give samtykke, så vi må svare dig.'
+          : 'Udfyld de markerede felter for at sende beskeden.';
         status.classList.add('is-error');
         invalid[0].focus();
         return;
@@ -144,28 +148,21 @@
           const res = await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
           if (!res.ok) throw new Error();
           form.reset();
-          status.textContent = 'Tak for din besked! Vi vender tilbage hurtigst muligt.';
+          status.textContent = 'Beskeden er sendt. Vi svarer hurtigst muligt.';
         } catch {
-          status.textContent = 'Beskeden kunne ikke sendes. Ring venligst til os eller skriv en e-mail.';
+          status.textContent = 'Beskeden blev ikke sendt. Ring på 50 20 67 66 eller skriv til clinic360@outlook.dk.';
           status.classList.add('is-error');
         }
         return;
       }
-      // Fallback uden server: åbn mailprogram med udfyldt besked
+      // Uden server: åbn mailprogrammet med beskeden udfyldt
       const body = `Navn: ${data.get('navn')}\nTelefon: ${data.get('telefon')}\nE-mail: ${data.get('email')}\nEmne: ${topics}\n\n${data.get('besked') || ''}`;
-      location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent('Henvendelse via clinic360.dk')}&body=${encodeURIComponent(body)}`;
-      status.textContent = 'Dit mailprogram åbnes med beskeden klar til afsendelse.';
+      location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent('Besked via clinic360.dk')}&body=${encodeURIComponent(body)}`;
+      status.textContent = 'Dit mailprogram åbner med beskeden klar. Tryk send dér.';
     });
-  }
-
-  /* Diskret fade-in ved scroll */
-  if (!reduceMotion && 'IntersectionObserver' in window) {
-    const targets = $$('.section-head, .t-card, .ba, .steps__item, .member, .price-card, .value, .zo__grid > *, .cta-band__inner > *, .intro__grid > *');
-    targets.forEach((t) => t.classList.add('reveal'));
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } }),
-      { rootMargin: '0px 0px -8% 0px' }
-    );
-    targets.forEach((t) => io.observe(t));
+    form.addEventListener('input', (e) => {
+      const f = e.target;
+      if (f.required && f.checkValidity()) f.closest('.field, .consent')?.classList.remove('is-invalid');
+    });
   }
 })();
