@@ -132,8 +132,18 @@
       const required = $$('[required]', form);
       required.forEach((f) => f.closest('.field, .consent')?.classList.toggle('is-invalid', !f.checkValidity()));
       const invalid = required.filter((f) => !f.checkValidity());
+      // Telefon eller e-mail: mindst ét af dem skal være udfyldt (og e-mail skal være gyldig, hvis den er udfyldt)
+      const either = $$('[data-either] input', form);
+      const filled = either.filter((f) => f.value.trim());
+      either.forEach((f) => f.closest('.field').classList.remove('is-invalid'));
+      if (!filled.length) {
+        either.forEach((f) => f.closest('.field').classList.add('is-invalid'));
+        invalid.splice(1, 0, either[0]);
+      } else {
+        filled.filter((f) => !f.checkValidity()).forEach((f) => { f.closest('.field').classList.add('is-invalid'); invalid.push(f); });
+      }
       if (invalid.length) {
-        status.textContent = invalid.some((f) => f.name === 'samtykke') && invalid.length === 1
+        status.textContent = invalid.length === 1 && invalid[0].name === 'samtykke'
           ? 'Sæt flueben for at give samtykke, så vi må svare dig.'
           : 'Udfyld de markerede felter for at sende beskeden.';
         status.classList.add('is-error');
@@ -162,7 +172,11 @@
     });
     form.addEventListener('input', (e) => {
       const f = e.target;
-      if (f.required && f.checkValidity()) f.closest('.field, .consent')?.classList.remove('is-invalid');
+      if ((f.required || f.closest('[data-either]')) && f.value.trim() && f.checkValidity()) {
+        f.closest('.field, .consent')?.classList.remove('is-invalid');
+        if (f.closest('[data-either]')) $$('[data-either]', form).forEach((x) => x.classList.remove('is-invalid'));
+      }
+      if (f.type === 'checkbox' && f.required && f.checked) f.closest('.consent')?.classList.remove('is-invalid');
     });
   }
 })();

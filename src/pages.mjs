@@ -1,4 +1,4 @@
-import { site, treatments, categories, results, steps, hours } from './data.mjs';
+import { site, treatments, categories, results, steps, hours, reviews } from './data.mjs';
 import {
   header, footer, trustStrip, priceIndex, priceBlock, priceTable, resultsGrid, resultsFeature, reviewsSection, stepsRows,
   faqList, zoSection, teamSection, pageHero, breadcrumbs, sectionHead, bookBtn, pricesBtn, btn, hoursList, stpsBadge,
@@ -84,7 +84,7 @@ function home() {
   const body = `
 ${pageHero({
   title: 'Kosmetiske behandlinger med naturlige resultater',
-  lead: 'Specialsygeplejersker med tilknyttet speciallæge i Hørup på Als. Vi starter altid med en gratis forundersøgelse.',
+  lead: 'Specialsygeplejersker med tilknyttet speciallæge i Hørup på Als. Gratis forundersøgelse og 10 % rabat på første behandling.',
   actions: bookBtn('primary') + pricesBtn(),
   bg: 'bg-team',
   alt: 'Ditte og Mette, der ejer Clinic 360, i klinikken',
@@ -229,6 +229,13 @@ ${
     <div>
       <h2 class="h2" id="priser-titel">Priser</h2>
       <p class="lead">Som ny kunde får du ${t.discount} % rabat på din første behandling. Forundersøgelsen er gratis.</p>
+      <p class="price-detail__call">Spørgsmål om prisen? Ring på <a href="${site.phoneHref}">${site.phone}</a>.</p>
+      ${(() => {
+        const r = reviews.find((x) => x.slug === t.slug);
+        return r
+          ? `<figure class="price-quote"><blockquote><p>»${r.text}«</p></blockquote><figcaption><strong>${r.name}</strong> på Trustpilot, ${r.date}</figcaption></figure>`
+          : '';
+      })()}
     </div>
     <div class="price-detail__table">
       ${priceTable(t)}
@@ -465,9 +472,10 @@ ${pageHero({
       <h2 class="h3">Skriv til os</h2>
       <div class="form__row">
         <div class="field"><label for="f-navn">Navn</label><input id="f-navn" name="navn" autocomplete="name" required aria-describedby="f-navn-fejl"><p class="field__error" id="f-navn-fejl">Skriv dit navn.</p></div>
-        <div class="field"><label for="f-tlf">Telefon</label><input id="f-tlf" name="telefon" type="tel" autocomplete="tel" required aria-describedby="f-tlf-fejl"><p class="field__error" id="f-tlf-fejl">Skriv dit telefonnummer.</p></div>
+        <div class="field" data-either><label for="f-tlf">Telefon</label><input id="f-tlf" name="telefon" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="f-kontakt-hjaelp f-tlf-fejl"><p class="field__error" id="f-tlf-fejl">Skriv telefon eller e-mail, så vi kan svare dig.</p></div>
       </div>
-      <div class="field"><label for="f-mail">E-mail</label><input id="f-mail" name="email" type="email" autocomplete="email" required aria-describedby="f-mail-fejl"><p class="field__error" id="f-mail-fejl">Skriv en gyldig e-mailadresse.</p></div>
+      <div class="field" data-either><label for="f-mail">E-mail</label><input id="f-mail" name="email" type="email" autocomplete="email" aria-describedby="f-kontakt-hjaelp f-mail-fejl"><p class="field__error" id="f-mail-fejl">Skriv en gyldig e-mailadresse, eller udfyld telefon i stedet.</p></div>
+      <p class="field__help" id="f-kontakt-hjaelp">Udfyld telefon eller e-mail. Vi svarer, hvor det passer dig.</p>
       <fieldset class="field">
         <legend>Det handler om (valgfrit)</legend>
         <div class="pill-options">

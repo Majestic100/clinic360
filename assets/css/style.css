@@ -455,6 +455,12 @@ html:not(.js) .ba__handle { display: none; }
 .price-detail { display: grid; gap: 32px; align-items: start; }
 .price-detail .lead { margin-top: 16px; }
 .price-detail .btn-row { margin-top: 24px; }
+.price-detail__call { margin-top: 16px; }
+.price-detail__call a { color: var(--ink); font-weight: 600; white-space: nowrap; }
+.price-quote { margin: 28px 0 0; padding-left: 18px; border-left: 2px solid var(--accent-soft); max-width: 52ch; }
+.price-quote blockquote { margin: 0 0 8px; }
+.price-quote p { color: var(--ink); font-size: 1.125rem; line-height: 1.5; }
+.price-quote figcaption { font-size: 0.9375rem; }
 @media (min-width: 900px) { .price-detail { grid-template-columns: 1fr 1.1fr; gap: 72px; } }
 
 .related { display: grid; gap: 24px; }
