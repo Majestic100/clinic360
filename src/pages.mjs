@@ -125,7 +125,7 @@ ${trustBar()}
 <section class="section intro">
   <div class="container intro__grid">
     <div class="intro__media">
-      ${img('interior-shelf', { alt: 'Rolige omgivelser i klinikken', sizes: '(min-width: 900px) 28vw, 60vw', cls: 'intro__img1' })}
+      ${img('team-standing', { alt: 'Ditte og Mette, indehavere af Clinic 360, i klinikken', sizes: '(min-width: 900px) 28vw, 60vw', cls: 'intro__img1' })}
       ${img('team-sofa', { alt: 'Forundersøgelse i klinikkens lounge', sizes: '(min-width: 900px) 24vw, 50vw', cls: 'intro__img2' })}
     </div>
     <div class="intro__body">
