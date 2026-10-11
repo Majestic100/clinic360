@@ -1,0 +1,9 @@
+# Netlify bygger siden automatisk ved hvert push.
+# PREVIEW=1 giver noindex på alle sider. Fjern det, når siden skal køre på clinic360.dk.
+[build]
+  command = "npm ci && node build.mjs"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  PREVIEW = "1"
