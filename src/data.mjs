@@ -49,7 +49,7 @@ export const treatments = [
     category: 'injektion',
     img: 'consultation-mature',
     short: 'Blødgør mimiske rynker i panden, mellem brynene og ved øjnene.',
-    headline: 'Bevar det friske og åbne udtryk',
+    headline: 'Bevar det friske og <em>åbne</em> udtryk',
     lead: 'Botox reducerer diskret synligheden af mimiske rynker, så du ser udhvilet ud, uden at dine nærmeste kan se, at du har fået en behandling.',
     discount: 10,
     facts: [
@@ -94,7 +94,7 @@ export const treatments = [
     category: 'injektion',
     img: 't-filler',
     short: 'Genskaber tabt volumen og former læber, kinder, hage og furer.',
-    headline: 'Genskab volumen med et naturligt resultat',
+    headline: 'Genskab volumen med et <em>naturligt</em> resultat',
     lead: 'Med ikke-permanente fillers genopbygger vi tabt volumen, mindsker rynker og forbedrer hudens fugt, så du stadig ser ud som dig selv, bare mere udhvilet.',
     discount: 10,
     facts: [
@@ -149,7 +149,7 @@ export const treatments = [
     category: 'injektion',
     img: 't-skinbooster',
     short: 'Dybdevirkende fugt, der giver glat, fast og glødende hud.',
-    headline: 'Fugt og glød indefra',
+    headline: 'Fugt og glød <em>indefra</em>',
     lead: 'Skinbooster tilfører huden dybdevirkende fugt med hyaluronsyre og glycerol. Huden bliver glattere, fastere og får sin naturlige glød tilbage.',
     discount: 10,
     facts: [
@@ -198,7 +198,7 @@ export const treatments = [
     category: 'injektion',
     img: 't-profhilo',
     short: 'Biostimulator, der strammer op og giver løs hud ny spændstighed.',
-    headline: 'Genvind elasticitet og spændstighed',
+    headline: 'Genvind elasticitet og <em>spændstighed</em>',
     lead: 'Profhilo stimulerer hudens egen produktion af kollagen og giver over tid en naturlig opstramning af løs og rynket hud i ansigt, på hals og krop.',
     discount: 10,
     facts: [
@@ -241,7 +241,7 @@ export const treatments = [
     category: 'injektion',
     img: 't-prf-hud',
     short: '100 % biologisk hudforyngelse med kroppens egne vækstfaktorer.',
-    headline: 'Hudforyngelse med dine egne celler',
+    headline: 'Hudforyngelse med <em>dine egne</em> celler',
     lead: 'PRF (Platelet Rich Fibrin) aktiverer hudens evne til at forny sig selv med kroppens egne vækstfaktorer. Helt uden kunstige tilsætningsstoffer.',
     discount: 10,
     facts: [
@@ -311,7 +311,7 @@ export const treatments = [
     category: 'krop',
     img: 't-prf-har',
     short: 'Naturlig stimulering af hårvækst ved begyndende hårtab.',
-    headline: 'Naturlig stimulering af hårvækst',
+    headline: 'Naturlig stimulering af <em>hårvækst</em>',
     lead: 'Oplever du begyndende hårtab eller tyndere hår? PRF bruger kroppens egne vækstfaktorer til at stimulere hårsækkene og understøtte ny hårvækst.',
     discount: 10,
     facts: [
@@ -351,7 +351,7 @@ export const treatments = [
     category: 'hud',
     img: 't-peeling',
     short: 'Medicinsk peeling mod akne, pigmentering, porer og fine linjer.',
-    headline: 'Forny huden med medicinsk peeling',
+    headline: 'Forny huden med <em>medicinsk</em> peeling',
     lead: 'En medicinsk peeling stimulerer cellefornyelsen og kan målrettes fine linjer, ujævn hudtone, store porer, pigmentering og akne.',
     discount: 10,
     facts: [
@@ -398,7 +398,7 @@ export const treatments = [
     category: 'hud',
     img: 't-skinpen',
     short: 'Microneedling, der booster kollagen mod ar, porer og pigmentering.',
-    headline: 'Boost hudens eget kollagen',
+    headline: 'Boost hudens eget <em>kollagen</em>',
     lead: 'Skinpen er en prisvindende microneedling-metode, der stimulerer huden til selv at danne nyt kollagen og giver en jævn og naturlig hudstruktur.',
     discount: 10,
     facts: [
@@ -440,7 +440,7 @@ export const treatments = [
     category: 'hud',
     img: 't-hydrafacial',
     short: 'Rens, eksfoliering og intens fugt i én behandling.',
-    headline: 'Smuk og sund hud med HydraFacial',
+    headline: 'Smuk og sund hud med <em>HydraFacial</em>',
     lead: 'HydraFacial kombinerer rensning, eksfoliering, dybderens og fugt i én skånsom behandling, der efterlader huden strålende og forynget.',
     discount: 10,
     facts: [
@@ -487,7 +487,7 @@ export const treatments = [
     category: 'krop',
     img: 't-fedtfrysning',
     short: 'Reducér genstridige fedtdepoter og stram huden op.',
-    headline: 'Slip af med genstridigt fedt',
+    headline: 'Slip af med <em>genstridigt</em> fedt',
     lead: 'Fedtfrysning er en skånsom behandling til fedtdepoter, der ikke forsvinder med træning og kost. Op til en tredjedel af det behandlede fedtvæv kan forsvinde.',
     discount: 20,
     facts: [

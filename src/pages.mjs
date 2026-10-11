@@ -1,18 +1,17 @@
-import { site, treatments, categories, results, steps, hours, reviews } from './data.mjs';
+import { site, rating, treatments, categories, results, steps, hours, reviews } from './data.mjs';
 import {
-  header, footer, trustStrip, priceIndex, priceBlock, priceTable, resultsGrid, resultsFeature, reviewsSection, stepsRows,
-  faqList, zoSection, teamSection, pageHero, breadcrumbs, sectionHead, bookBtn, pricesBtn, btn, hoursList, stpsBadge,
-  visitSection, bySlug, minPrice, baCard,
+  header, footer, trustBar, treatmentCard, priceCard, priceTable, resultsGrid, reviewsSection, stepsList, faqList,
+  zoSection, ctaBand, teamGrid, pageHero, breadcrumbs, sectionHead, bookBtn, btn, eyebrow, hoursList, stpsBadge,
+  bySlug, minPrice, baCard, bgHero,
 } from './components.mjs';
-import { url, asset, esc, kr, plain, img, icon } from './helpers.mjs';
+import { url, asset, esc, kr, plain, img, icon, stars } from './helpers.mjs';
 
 const ext = 'target="_blank" rel="noopener"';
 const heroBg = {
-  injektion: { bg: 'bg-consult', alt: 'Ditte vejleder en kunde før behandling', pos: '50%', posMobile: '22%' },
-  hud: { bg: 'bg-skin', alt: 'Ansigtsbehandling i klinikken', pos: '50%', posMobile: '42%' },
-  krop: { bg: 'bg-shelf-2', alt: 'Detalje fra klinikken', pos: '50%', posMobile: '45%' },
+  injektion: { bg: 'bg-consult', alt: 'Ditte vejleder en kunde før behandling', posMobile: '84%' },
+  hud: { bg: 'bg-skin', alt: 'Ansigtsbehandling i klinikken', posMobile: '42%' },
+  krop: { bg: 'bg-shelf-2', alt: 'Detalje fra klinikken', posMobile: '45%' },
 };
-const pick = (ids) => ids.map((id) => results.find((r) => r.id === id));
 
 /* ---------------------------------------------------------------- Layout */
 
@@ -33,7 +32,13 @@ function jsonLd() {
     telephone: site.phone,
     email: site.email,
     image: site.url + '/assets/img/team-hero-1080.webp',
-    address: { '@type': 'PostalAddress', streetAddress: site.address.street, postalCode: site.address.zip, addressLocality: site.address.city, addressCountry: 'DK' },
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: site.address.street,
+      postalCode: site.address.zip,
+      addressLocality: site.address.city,
+      addressCountry: 'DK',
+    },
     openingHoursSpecification: spec,
     sameAs: [site.facebook, site.instagram],
   });
@@ -41,18 +46,16 @@ function jsonLd() {
 
 export function layout({ path, title, description, active = '', body, ogImage = 'team-hero-1080.webp' }) {
   const canonical = site.url + '/' + path;
-  const fullTitle = path === '' ? `${site.name}, kosmetisk speciallægeklinik ved Sønderborg` : `${title} | ${site.name}`;
+  const fullTitle = path === '' ? `${site.name} · Kosmetisk speciallægeklinik i Sønderborg & Sydals` : `${title} · ${site.name}`;
   return `<!doctype html>
 <html lang="da">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light dark">
 <title>${esc(fullTitle)}</title>
 <meta name="description" content="${esc(description)}">
 <link rel="canonical" href="${canonical}">
-<meta name="theme-color" content="#FAFAF9" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#1F1D1C" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F7F4F1">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="da_DK">
 <meta property="og:site_name" content="${site.name}">
@@ -62,7 +65,8 @@ export function layout({ path, title, description, active = '', body, ogImage = 
 <meta property="og:image" content="${site.url}/assets/img/${ogImage}">
 <link rel="icon" href="${asset('img/favicon.png')}" type="image/png">
 <link rel="apple-touch-icon" href="${asset('img/favicon.png')}">
-<link rel="preload" href="${asset('fonts/albert-sans-var.woff2')}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="${asset('fonts/hanken-grotesk-var.woff2')}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="${asset('fonts/instrument-serif.woff2')}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${asset('css/style.css')}">
 <script>document.documentElement.classList.add('js')</script>
 <script type="application/ld+json">${jsonLd()}</script>
@@ -81,63 +85,72 @@ ${footer()}
 /* ---------------------------------------------------------------- Forside */
 
 function home() {
+  const featured = ['botox', 'kosmetisk-filler', 'skinbooster', 'hydrafacial', 'pfr-hud', 'kemisk-peeling'].map((s) => bySlug[s]);
+  const featuredResults = ['ba-ansigt-3', 'ba-laeber-1', 'ba-pande-4', 'ba-laeber-2'].map((id) => results.find((r) => r.id === id));
   const body = `
-${pageHero({
-  title: 'Kosmetiske behandlinger med naturlige resultater',
-  lead: 'Specialsygeplejersker med tilknyttet speciallæge i Hørup på Als. Gratis forundersøgelse og 10 % rabat på første behandling.',
-  actions: bookBtn('primary') + pricesBtn(),
+${bgHero({
+  eyebrow: 'Kosmetisk speciallægeklinik · Sydals',
+  title: 'Naturlig skønhed, med respekt for <em>hudens aldring</em>',
+  lead: 'Kosmetiske behandlinger udført af erfarne specialsygeplejersker med tilknyttet speciallæge. I Hørup på Als, tæt på Sønderborg.',
+  actions: bookBtn('primary', 'Book tid') + btn('Se behandlinger & priser', url('priser/'), { variant: 'outline' }),
+  extra: `<ul class="hero__points"><li>${icon.check} Gratis og uforpligtende forundersøgelse</li><li>${icon.check} 10 % rabat på din første behandling</li></ul>`,
   bg: 'bg-team',
-  alt: 'Ditte og Mette, der ejer Clinic 360, i klinikken',
-  pos: '50%',
+  alt: 'Ditte og Mette, indehavere af Clinic 360, i klinikken',
   mobileImg: 'team-hero-portrait',
   large: true,
 })}
 
-${trustStrip()}
+${trustBar()}
 
 <section class="section intro">
-  <div class="container intro__inner">
-    <h2 class="h2">Din tryghed kommer før resultatet</h2>
-    <div class="intro__text">
-      <p class="lead">Vi starter altid med en grundig og gratis forundersøgelse. Først derefter lægger vi en plan, der passer til dine ønsker, og er en behandling ikke det rigtige for dig, siger vi det.</p>
-      <p><a class="text-link" href="${url('om-os/')}">Mød Mette, Ditte og Kristian</a></p>
+  <div class="container intro__grid">
+    <div class="intro__media">
+      ${img('interior-shelf', { alt: 'Rolige omgivelser i klinikken', sizes: '(min-width: 900px) 28vw, 60vw', cls: 'intro__img1' })}
+      ${img('team-sofa', { alt: 'Forundersøgelse i klinikkens lounge', sizes: '(min-width: 900px) 24vw, 50vw', cls: 'intro__img2' })}
+    </div>
+    <div class="intro__body">
+      ${eyebrow('Velkommen til Clinic 360')}
+      <h2 class="h2">Din tryghed kommer <em>før</em> resultatet</h2>
+      <p class="lead">Vores mål er et resultat, der fremhæver din naturlige skønhed på en æstetisk og harmonisk måde.</p>
+      <p>Vi starter altid med en grundig og gratis forundersøgelse, så vi forstår dine ønsker og forventninger. Først derefter skræddersyr vi det behandlingsforløb, der passer til dig. Er en behandling ikke det rigtige for dig, siger vi det.</p>
+      <p>Som kosmetisk speciallægeklinik er vi registreret hos Styrelsen for Patientsikkerhed, og vi går aldrig på kompromis med kvalitet og sikkerhed.</p>
+      <a class="link" href="${url('om-os/')}">Mød os bag klinikken ${icon.arrow}</a>
     </div>
   </div>
 </section>
 
-<section class="section section--plane" aria-labelledby="behandlinger">
+<section class="section section--tint">
   <div class="container">
-    ${sectionHead({ title: 'Behandlinger og priser', lead: 'Alle priser står her. Klik på en behandling for at læse mere.', id: 'behandlinger' })}
-    ${priceIndex()}
-    <div class="btn-row">${pricesBtn('primary')}</div>
+    ${sectionHead({ eyebrow: 'Behandlinger', title: 'Udvalgte behandlinger', lead: 'Fra blød rynkebehandling til medicinsk hudpleje. Alle priser står tydeligt, så du ved, hvad du går ind til.', action: btn('Se alle 10 behandlinger', url('behandlinger/'), { variant: 'outline', icon: icon.arrow }) })}
+    <div class="t-grid">${featured.map((t) => treatmentCard(t)).join('')}</div>
   </div>
 </section>
 
-<section class="section" aria-labelledby="foer-efter">
+<section class="section">
   <div class="container">
-    ${sectionHead({ title: 'Før og efter', lead: 'Træk i billedet for at sammenligne.', id: 'foer-efter' })}
-    ${resultsFeature(pick(['ba-ansigt-3', 'ba-laeber-1', 'ba-pande-4']))}
-    <div class="btn-row">${btn('Se før og efter', url('foer-efter/'), { variant: 'secondary' })}</div>
+    ${sectionHead({ eyebrow: 'Før & efter', title: 'Resultater, der stadig ligner <em>dig</em>', lead: 'Træk i billederne for at sammenligne. Alle billeder er af vores egne kunder.', action: btn('Se alle resultater', url('foer-efter/'), { variant: 'outline', icon: icon.arrow }) })}
+    ${resultsGrid(featuredResults, { filters: false, id: 'udvalgte-resultater' })}
   </div>
 </section>
 
 ${reviewsSection()}
 
-<section class="section" aria-labelledby="forloeb">
+<section class="section">
   <div class="container">
-    ${sectionHead({ title: 'Sådan foregår et forløb', id: 'forloeb' })}
-    ${stepsRows(steps)}
+    ${sectionHead({ eyebrow: 'Sådan foregår det', title: 'Et trygt forløb fra første samtale', align: 'center' })}
+    ${stepsList(steps, 'steps--3')}
   </div>
 </section>
 
-<section class="section section--plane" aria-labelledby="team">
+<section class="section section--tint">
   <div class="container">
-    ${sectionHead({ title: 'Mød os', lead: 'To kosmetiske specialsygeplejersker fra Sønderborg Sygehus og en speciallæge i dermatologi.', id: 'team' })}
-    ${teamSection()}
+    ${sectionHead({ eyebrow: 'Teamet', title: 'Autoriseret sundhedspersonale', lead: 'To kosmetiske specialsygeplejersker med baggrund fra Sønderborg Sygehus og en speciallæge med mange års erfaring i dermatologi.', action: btn('Læs mere om os', url('om-os/'), { variant: 'outline', icon: icon.arrow }) })}
+    ${teamGrid()}
   </div>
 </section>
 
 ${zoSection()}
+${ctaBand()}
 ${visitSection()}
 `;
   return layout({
@@ -148,20 +161,52 @@ ${visitSection()}
   });
 }
 
+function visitSection() {
+  return `<section class="section visit" aria-labelledby="besoeg-titel">
+  <div class="container visit__grid">
+    <div>
+      ${eyebrow('Besøg klinikken')}
+      <h2 class="h2" id="besoeg-titel">Find os i Hørup på Sydals</h2>
+      <ul class="contact-list">
+        <li><span class="contact-list__icon">${icon.pin}</span><span><strong>Adresse</strong><a href="${site.mapsUrl}" ${ext}>${site.address.street}, ${site.address.zip} ${site.address.city}</a></span></li>
+        <li><span class="contact-list__icon">${icon.phone}</span><span><strong>Telefon</strong><a href="${site.phoneHref}">${site.phone}</a></span></li>
+        <li><span class="contact-list__icon">${icon.mail}</span><span><strong>E-mail</strong><a href="mailto:${site.email}">${site.email}</a></span></li>
+      </ul>
+      <div class="btn-row">
+        ${bookBtn('primary', 'Book tid')}
+        ${btn('Rutevejledning', site.mapsUrl, { variant: 'outline', external: true, icon: icon.external })}
+      </div>
+    </div>
+    <div class="visit__hours">
+      <h3 class="h3">${icon.clock} Åbningstider</h3>
+      ${hoursList()}
+    </div>
+  </div>
+</section>`;
+}
+
 /* ---------------------------------------------------------------- Behandlinger */
 
 function treatmentsIndex() {
   const body = `
 ${pageHero({
-  title: 'Behandlinger',
-  lead: 'Alle behandlinger udføres af autoriseret sundhedspersonale og starter med en gratis forundersøgelse.',
-  actions: bookBtn('primary') + pricesBtn(),
+  eyebrow: 'Behandlinger',
   bg: 'bg-skin', alt: 'Ansigtsbehandling i klinikken', posMobile: '42%',
+  title: 'Find den behandling, der <em>passer til dig</em>',
+  lead: 'Alle behandlinger udføres af autoriseret sundhedspersonale og starter med en gratis forundersøgelse.',
+  actions: bookBtn('primary', 'Book forundersøgelse') + btn('Se prisliste', url('priser/'), { variant: 'outline' }),
 })}
-<section class="section section--plane section--flush">
-  <div class="container">${priceIndex()}</div>
-</section>
-${reviewsSection({ compact: true })}
+${categories
+  .map(
+    (c) => `<section class="section section--tight">
+  <div class="container">
+    ${sectionHead({ title: c.name })}
+    <div class="t-grid">${treatments.filter((t) => t.category === c.id).map((t) => treatmentCard(t)).join('')}</div>
+  </div>
+</section>`
+  )
+  .join('')}
+${ctaBand()}
 `;
   return layout({
     path: 'behandlinger/',
@@ -176,19 +221,20 @@ function treatmentPage(t) {
   const tResults = results.filter((r) => t.results.includes(r.tag));
   const related = t.related.map((s) => bySlug[s]);
   const body = `
-${pageHero({
-  title: t.name,
+${bgHero({
+  eyebrow: t.name,
+  title: t.headline,
   lead: t.lead,
-  actions: bookBtn('primary') + btn('Se priser', '#priser', { variant: 'secondary' }),
-  ...heroBg[t.category],
+  extra: `<div class="t-hero__price"><span>Pris fra</span><strong>${kr(minPrice(t))}</strong><a class="link" href="#priser">Se alle priser ${icon.arrow}</a></div>`,
+  actions: bookBtn('primary', 'Book tid') + btn('Gratis forundersøgelse', url('kontakt/'), { variant: 'outline' }),
   crumbs: breadcrumbs([{ href: 'behandlinger/', label: 'Behandlinger' }, { label: t.name }]),
+  ...heroBg[t.category],
 })}
 
-<section class="facts-wrap" aria-label="Kort fortalt">
+<section class="facts-wrap">
   <div class="container">
     <dl class="facts">
-      <div class="facts__item"><dt>Pris</dt><dd>fra ${kr(minPrice(t))}</dd></div>
-      ${t.facts.slice(0, 3).map(([k, v]) => `<div class="facts__item"><dt>${k}</dt><dd>${v}</dd></div>`).join('')}
+      ${t.facts.map(([k, v]) => `<div class="facts__item"><dt>${k}</dt><dd>${v}</dd></div>`).join('')}
     </dl>
   </div>
 </section>
@@ -196,17 +242,19 @@ ${pageHero({
 <section class="section">
   <div class="container article">
     <div class="article__main prose">
-      <h2 class="h2">${t.headline}</h2>
-      ${t.body.map((b, i) => `${i > 0 ? `<h3 class="h3">${b.h}</h3>` : ''}${b.p.map((p) => `<p>${p}</p>`).join('')}`).join('')}
+      ${t.body.map((b) => `<h2 class="h3">${b.h}</h2>${b.p.map((p) => `<p>${p}</p>`).join('')}`).join('')}
     </div>
     <aside class="article__aside">
-      <div class="article__img">${img(t.img, { alt: `${t.name} hos Clinic 360`, sizes: '(min-width: 960px) 30vw, 92vw' })}</div>
-      <h2 class="h4">Velegnet til</h2>
-      <ul class="checklist">${t.suited.map((s) => `<li>${icon.check}<span>${s}</span></li>`).join('')}</ul>
+      <div class="aside-card">
+        <h2 class="h4">Velegnet til</h2>
+        <ul class="checklist">${t.suited.map((s) => `<li>${icon.check}<span>${s}</span></li>`).join('')}</ul>
+      </div>
       ${
         t.contraindications
-          ? `<h2 class="h4">Du kan ikke behandles, hvis du</h2>
-      <ul class="dotlist">${t.contraindications.map((s) => `<li>${s}</li>`).join('')}</ul>`
+          ? `<div class="aside-card aside-card--muted">
+        <h2 class="h4">Du kan ikke behandles, hvis du</h2>
+        <ul class="dotlist">${t.contraindications.map((s) => `<li>${s}</li>`).join('')}</ul>
+      </div>`
           : ''
       }
     </aside>
@@ -215,49 +263,37 @@ ${pageHero({
 
 ${
   t.steps.length
-    ? `<section class="section section--plane" aria-labelledby="forloeb">
+    ? `<section class="section section--tint">
   <div class="container">
-    ${sectionHead({ title: 'Sådan foregår det', id: 'forloeb' })}
-    ${stepsRows(t.steps)}
+    ${sectionHead({ eyebrow: 'Behandlingsforløb', title: `Sådan foregår ${t.name.toLowerCase().startsWith('prf') ? 'en PRF-behandling' : 'behandlingen'}` })}
+    ${stepsList(t.steps, `steps--${Math.min(t.steps.length, 4)}`)}
   </div>
 </section>`
     : ''
 }
 
-<section class="section" id="priser" aria-labelledby="priser-titel">
+<section class="section" id="priser">
   <div class="container price-detail">
     <div>
-      <h2 class="h2" id="priser-titel">Priser</h2>
-      <p class="lead">Som ny kunde får du ${t.discount} % rabat på din første behandling. Forundersøgelsen er gratis.</p>
+      ${eyebrow('Priser')}
+      <h2 class="h2">Priser for ${t.name}</h2>
+      <p class="lead">Som ny kunde får du <strong>${t.discount} % rabat</strong> på din første behandling. Forundersøgelsen er altid gratis.</p>
+      <div class="btn-row">${bookBtn('primary', 'Book tid')}${btn('Se alle priser', url('priser/'), { variant: 'outline' })}</div>
       <p class="price-detail__call">Spørgsmål om prisen? Ring på <a href="${site.phoneHref}">${site.phone}</a>.</p>
-      ${(() => {
-        const r = reviews.find((x) => x.slug === t.slug);
-        return r
-          ? `<figure class="price-quote"><blockquote><p>»${r.text}«</p></blockquote><figcaption><strong>${r.name}</strong> på Trustpilot, ${r.date}</figcaption></figure>`
-          : '';
-      })()}
     </div>
-    <div class="price-detail__table">
-      ${priceTable(t)}
-      <div class="btn-row">${bookBtn('primary')}</div>
-    </div>
+    <div class="price-detail__table">${priceTable(t)}${(() => {
+      const r = reviews.find((x) => x.slug === t.slug);
+      return r ? `<figure class="price-quote">${stars(5, 'tp-stars--sm')}<blockquote><p>“${r.text}”</p></blockquote><figcaption><strong>${r.name}</strong> på Trustpilot, ${r.date}</figcaption></figure>` : '';
+    })()}</div>
   </div>
 </section>
 
 ${
-  tResults.length >= 3
-    ? `<section class="section section--plane" aria-labelledby="resultater">
+  tResults.length
+    ? `<section class="section section--tint">
   <div class="container">
-    ${sectionHead({ title: 'Før og efter', lead: 'Træk i billedet for at sammenligne.', id: 'resultater' })}
-    ${resultsFeature(tResults)}
-    <div class="btn-row">${btn('Se før og efter', url('foer-efter/') + '#' + t.results[0], { variant: 'secondary' })}</div>
-  </div>
-</section>`
-    : tResults.length
-    ? `<section class="section section--plane" aria-labelledby="resultater">
-  <div class="container">
-    ${sectionHead({ title: 'Før og efter', lead: 'Træk i billedet for at sammenligne.', id: 'resultater' })}
-    <div class="results__grid results__grid--two">${tResults.map((r) => baCard(r, { sizes: '(min-width: 640px) 45vw, 92vw' })).join('')}</div>
+    ${sectionHead({ eyebrow: 'Før & efter', title: `Resultater med ${t.name.toLowerCase()}`, lead: 'Træk i billederne for at sammenligne.', action: btn('Se alle resultater', url('foer-efter/'), { variant: 'outline', icon: icon.arrow }) })}
+    ${resultsGrid(tResults.slice(0, 4), { filters: false, id: 'resultater-' + t.slug })}
   </div>
 </section>`
     : ''
@@ -265,33 +301,24 @@ ${
 
 ${
   t.faq
-    ? `<section class="section" aria-labelledby="faq">
+    ? `<section class="section">
   <div class="container narrow">
-    ${sectionHead({ title: 'Spørgsmål og svar', id: 'faq' })}
+    ${sectionHead({ eyebrow: 'Spørgsmål og svar', title: 'Ofte stillede spørgsmål', align: 'center' })}
     ${faqList(t.faq)}
   </div>
 </section>`
     : ''
 }
 
-${reviewsSection({ compact: true })}
+${reviewsSection({ title: 'Trygge kunder, naturlige resultater', compact: true })}
 
-<section class="section" aria-labelledby="relateret">
+<section class="section">
   <div class="container">
-    ${sectionHead({ title: 'Relaterede behandlinger', id: 'relateret' })}
-    <ul class="related">
-      ${related
-        .map(
-          (r) => `<li><a href="${url(r.slug + '/')}" class="related__link">
-          <span class="related__media">${img(r.img, { alt: '', sizes: '(min-width: 900px) 30vw, 92vw' })}</span>
-          <span class="related__name">${r.name}</span>
-          <span class="related__price">fra ${kr(minPrice(r))}</span>
-        </a></li>`
-        )
-        .join('')}
-    </ul>
+    ${sectionHead({ eyebrow: 'Måske også interessant', title: 'Relaterede behandlinger' })}
+    <div class="t-grid">${related.map((r) => treatmentCard(r)).join('')}</div>
   </div>
 </section>
+${ctaBand()}
 `;
   return layout({
     path: t.slug + '/',
@@ -309,20 +336,29 @@ function prices() {
   const priceFaq = [
     { q: 'Er forundersøgelsen gratis?', a: 'Ja. Vi tilbyder altid en gratis og uforpligtende forundersøgelse, hvor vi gennemgår dine ønsker og forventninger.' },
     { q: 'Hvordan får jeg velkomstrabatten?', a: 'Som ny kunde får du 10 % rabat på din første behandling hos os. På fedtfrysning er velkomstrabatten 20 %.' },
-    { q: 'Hvorfor skal jeg vente 48 timer?', a: 'Ved injektionsbehandlinger som botox, filler, skinbooster og Profhilo kræver loven 48 timers betænkningstid mellem forundersøgelse og behandling. Du kan godt booke behandlingen med det samme.' },
-    { q: 'Skal jeg til læge før botox?', a: 'Ja. Botox er et lægemiddel, så vores speciallæge holder en lovpligtig forkonsultation online. Den er kun nødvendig første gang.' },
+    { q: 'Hvorfor skal jeg vente 48 timer?', a: 'Ved injektionsbehandlinger som botox, filler, skinbooster og Profhilo kræver lovgivningen 48 timers betænkningstid mellem forundersøgelse og behandling. Du kan sagtens booke behandlingen med det samme.' },
+    { q: 'Skal jeg til læge før botox?', a: 'Ja. Botox er et lægemiddel, så vores speciallæge foretager en lovpligtig forkonsultation online. Den er kun nødvendig første gang.' },
   ];
   const body = `
 ${pageHero({
-  title: 'Priser',
-  lead: 'Forundersøgelsen er gratis, og som ny kunde får du 10 % rabat på første behandling (20 % på fedtfrysning).',
-  actions: bookBtn('primary') + btn('Ring ' + site.phone, site.phoneHref, { variant: 'secondary' }),
+  eyebrow: 'Priser',
   bg: 'bg-shelf', alt: 'Hylde med kurve og planter i klinikken', posMobile: '70%',
+  title: 'Klare priser på <em>alle</em> behandlinger',
+  lead: 'Find din behandling herunder, eller hop direkte til den i menuen. Alle priser er i danske kroner.',
+  actions: bookBtn('primary', 'Book tid') + btn('Ring ' + site.phone, site.phoneHref, { variant: 'outline' }),
 })}
+
+<section class="perks">
+  <div class="container perks__grid">
+    <div class="perk"><span class="perk__icon">${icon.chat}</span><div><h2 class="h4">Gratis forundersøgelse</h2><p>Altid uforpligtende, så du kan træffe et trygt valg.</p></div></div>
+    <div class="perk"><span class="perk__icon">${icon.gift}</span><div><h2 class="h4">Velkomstrabat</h2><p>10 % på din første behandling, 20 % på fedtfrysning.</p></div></div>
+    <div class="perk"><span class="perk__icon">${icon.clock}</span><div><h2 class="h4">48 timers betænkningstid</h2><p>Ved injektionsbehandlinger, som loven kræver.</p></div></div>
+  </div>
+</section>
 
 <div class="price-nav" data-price-nav>
   <div class="container">
-    <ul class="price-nav__list" aria-label="Gå til behandling">
+    <ul class="price-nav__list" aria-label="Spring til behandling">
       ${treatments.map((t) => `<li><a href="#pris-${t.slug}" data-spy-link="pris-${t.slug}">${t.name}</a></li>`).join('')}
     </ul>
   </div>
@@ -332,28 +368,25 @@ ${categories
   .map(
     (c) => `<section class="section section--tight price-section" aria-labelledby="kat-${c.id}">
   <div class="container">
-    <h2 class="h2 price-section__title" id="kat-${c.id}">${c.name}</h2>
-    ${treatments.filter((t) => t.category === c.id).map(priceBlock).join('')}
+    <h2 class="price-section__title" id="kat-${c.id}">${c.name}</h2>
+    <div class="price-grid">${treatments.filter((t) => t.category === c.id).map(priceCard).join('')}</div>
   </div>
 </section>`
   )
   .join('')}
 
-<p class="container legal-note">${icon.clock}Ved injektionsbehandlinger er der 48 timers lovpligtig betænkningstid efter forundersøgelsen.</p>
-
-<section class="section section--plane" aria-labelledby="pris-resultater">
+<section class="section section--tint">
   <div class="container">
-    ${sectionHead({ title: 'Se resultaterne før du vælger', lead: 'Træk i billedet for at sammenligne.', id: 'pris-resultater' })}
-    ${resultsFeature(pick(['ba-ansigt-7', 'ba-laeber-2', 'ba-pande-1']))}
-    <div class="btn-row">${btn('Se før og efter', url('foer-efter/'), { variant: 'secondary' })}</div>
+    ${sectionHead({ eyebrow: 'Før & efter', title: 'Se resultaterne, før du vælger', lead: 'Træk i billederne for at sammenligne.', action: btn('Alle før & efter-billeder', url('foer-efter/'), { variant: 'outline', icon: icon.arrow }) })}
+    ${resultsGrid(['ba-ansigt-7', 'ba-laeber-2', 'ba-pande-4', 'ba-laeber-1'].map((id) => results.find((r) => r.id === id)), { filters: false, id: 'pris-resultater' })}
   </div>
 </section>
 
 ${zoSection()}
 
-<section class="section section--plane" aria-labelledby="pris-faq">
+<section class="section">
   <div class="container narrow">
-    ${sectionHead({ title: 'Spørgsmål om priser', id: 'pris-faq' })}
+    ${sectionHead({ eyebrow: 'Godt at vide', title: 'Spørgsmål om priser og forløb', align: 'center' })}
     ${faqList(priceFaq)}
   </div>
 </section>
@@ -373,19 +406,21 @@ ${reviewsSection({ compact: true })}
 function beforeAfter() {
   const body = `
 ${pageHero({
-  title: 'Før og efter',
-  lead: 'Træk i billederne for at se forskellen. Filtrér efter behandling.',
-  actions: bookBtn('primary') + pricesBtn(),
+  eyebrow: 'Før & efter',
   bg: 'bg-shelf-2', alt: 'Hylde med kurve og planter i klinikken', posMobile: '45%',
+  title: 'Naturlige resultater fra <em>vores egne</em> kunder',
+  lead: 'Træk i billederne for at se forskellen. Filtrér efter behandling for at finde det, du er interesseret i.',
+  actions: bookBtn('primary', 'Book forundersøgelse') + btn('Se priser', url('priser/'), { variant: 'outline' }),
 })}
-<section class="section section--flush">
+<section class="section section--tight">
   <div class="container">${resultsGrid(results)}</div>
 </section>
 ${reviewsSection({ compact: true })}
+${ctaBand()}
 `;
   return layout({
     path: 'foer-efter/',
-    title: 'Før og efter',
+    title: 'Før & efter',
     active: 'foer-efter',
     description: 'Se før og efter-billeder af botox og filler hos Clinic 360 i Hørup nær Sønderborg. Naturlige resultater fra vores egne kunder.',
     body,
@@ -396,44 +431,44 @@ ${reviewsSection({ compact: true })}
 
 function about() {
   const values = [
-    { t: 'Sikkerhed først', d: 'Vi er registreret hos Styrelsen for Patientsikkerhed, og alle behandlinger udføres af autoriseret sundhedspersonale.' },
-    { t: 'Naturlige resultater', d: 'Vi forfiner dit udseende uden at ændre det, med respekt for den naturlige aldring.' },
-    { t: 'Ærlig vejledning', d: 'Du får god tid og en ærlig vurdering, også når svaret er, at du ikke har brug for en behandling.' },
+    { i: icon.shield, t: 'Sikkerhed først', d: 'Registreret hos Styrelsen for Patientsikkerhed. Alle behandlinger udføres af autoriseret sundhedspersonale.' },
+    { i: icon.heart, t: 'Naturlige resultater', d: 'Vi forfiner dit udseende uden at ændre det, med stor respekt for den naturlige aldring.' },
+    { i: icon.chat, t: 'Ærlig vejledning', d: 'God tid, grundig information og en ærlig vurdering. Også når svaret er, at du ikke har brug for en behandling.' },
   ];
   const body = `
 ${pageHero({
-  title: 'Om Clinic 360',
-  lead: 'Klinikken drives af Mette Appel og Ditte B. R. Thordsen, begge kosmetiske specialsygeplejersker, med tilknyttet speciallæge.',
-  actions: bookBtn('primary'),
-  bg: 'bg-team-wall', alt: 'Mette og Ditte foran Clinic 360-skiltet', pos: '50%', posMobile: '78%',
+  eyebrow: 'Om Clinic 360',
+  title: 'Sygeplejersker med <em>hjerte</em> for detaljen',
+  lead: 'Clinic 360 drives af Mette Appel og Ditte B. R. Thordsen, begge kosmetiske specialsygeplejersker med klinisk baggrund fra Sønderborg Sygehus, og med tilknyttet speciallæge.',
+  actions: bookBtn('primary', 'Book tid'),
+  bg: 'bg-team-wall', posMobile: '78%',
+  alt: 'Mette og Ditte foran Clinic 360-skiltet',
 })}
-<section class="section section--tight" aria-labelledby="vaerdier">
+<section class="section section--tight">
   <div class="container values">
-    <h2 class="h2" id="vaerdier">Det kan du regne med</h2>
-    <dl class="values__list">
-      ${values.map((v) => `<div><dt>${v.t}</dt><dd>${v.d}</dd></div>`).join('')}
-    </dl>
+    ${values.map((v) => `<div class="value"><span class="value__icon">${v.i}</span><h2 class="h4">${v.t}</h2><p>${v.d}</p></div>`).join('')}
   </div>
 </section>
-<section class="section section--plane" aria-labelledby="team">
+<section class="section section--tint">
   <div class="container">
-    ${sectionHead({ title: 'Mød os', id: 'team' })}
-    ${teamSection({ withBio: true })}
+    ${sectionHead({ eyebrow: 'Teamet', title: 'Mød os' })}
+    ${teamGrid({ withBio: true })}
   </div>
 </section>
-<section class="section" aria-labelledby="klinikken">
+<section class="section">
   <div class="container">
-    ${sectionHead({ title: 'Klinikken', lead: 'En lys og rolig klinik i Hørup, hvor der er tid til dig.', id: 'klinikken' })}
+    ${sectionHead({ eyebrow: 'Klinikken', title: 'Rolige rammer i Hørup', lead: 'En lys og diskret klinik, hvor der er tid til dig.' })}
     <div class="gallery">
       ${img('interior-lounge', { alt: 'Klinikkens lounge', sizes: '(min-width: 900px) 25vw, 50vw' })}
       ${img('t-skinpen-2', { alt: 'Behandling i klinikken', sizes: '(min-width: 900px) 40vw, 100vw' })}
-      ${img('interior-anatomy', { alt: 'Plakat over ansigtets anatomi i klinikken', sizes: '(min-width: 900px) 25vw, 50vw' })}
+      ${img('interior-anatomy', { alt: 'Detalje fra klinikken', sizes: '(min-width: 900px) 25vw, 50vw' })}
       ${img('tray', { alt: 'Forfriskninger i klinikken', sizes: '(min-width: 900px) 25vw, 50vw' })}
-      ${img('t-hydrafacial-2', { alt: 'Ansigtsbehandling med kølende kugler', sizes: '(min-width: 900px) 25vw, 50vw' })}
+      ${img('t-hydrafacial-2', { alt: 'Ansigtsbehandling', sizes: '(min-width: 900px) 25vw, 50vw' })}
     </div>
   </div>
 </section>
 ${reviewsSection()}
+${ctaBand()}
 `;
   return layout({
     path: 'om-os/',
@@ -450,47 +485,50 @@ ${reviewsSection()}
 function contact() {
   const body = `
 ${pageHero({
-  title: 'Kontakt os',
-  lead: 'Har du spørgsmål, eller vil du høre om en behandling? Ring, skriv eller book tid direkte.',
+  eyebrow: 'Kontakt',
   bg: 'bg-talk', alt: 'Samtale i klinikken', posMobile: '80%',
+  title: 'Ring, skriv eller <em>kig forbi</em>',
+  lead: 'Har du spørgsmål, eller vil du booke en uforpligtende konsultation? Vi vender tilbage hurtigst muligt.',
 })}
-<section class="section section--flush">
+<section class="section section--tight">
   <div class="container contact">
     <div class="contact__info">
       <ul class="contact-list">
-        <li>${icon.phone}<span><span class="contact-list__label">Telefon</span><a href="${site.phoneHref}">${site.phone}</a></span></li>
-        <li>${icon.mail}<span><span class="contact-list__label">E-mail</span><a href="mailto:${site.email}">${site.email}</a></span></li>
-        <li>${icon.pin}<span><span class="contact-list__label">Adresse</span><a href="${site.mapsUrl}" ${ext}>${site.address.street}, ${site.address.zip} ${site.address.city}</a></span></li>
+        <li><span class="contact-list__icon">${icon.phone}</span><span><strong>Telefon</strong><a href="${site.phoneHref}">${site.phone}</a></span></li>
+        <li><span class="contact-list__icon">${icon.mail}</span><span><strong>E-mail</strong><a href="mailto:${site.email}">${site.email}</a></span></li>
+        <li><span class="contact-list__icon">${icon.pin}</span><span><strong>Adresse</strong><a href="${site.mapsUrl}" ${ext}>${site.name}, ${site.address.street}<br>${site.address.zip} ${site.address.city}</a></span></li>
       </ul>
-      <div>
-        <h2 class="h4">Åbningstider</h2>
+      <div class="aside-card">
+        <h2 class="h4">${icon.clock} Åbningstider</h2>
         ${hoursList()}
       </div>
       ${stpsBadge()}
     </div>
     <form class="form" data-contact-form data-endpoint="${esc(site.formEndpoint)}" data-email="${site.email}" novalidate>
-      <h2 class="h3">Skriv til os</h2>
+      <h2 class="h3">Hvad kan vi hjælpe med?</h2>
       <div class="form__row">
-        <div class="field"><label for="f-navn">Navn</label><input id="f-navn" name="navn" autocomplete="name" required aria-describedby="f-navn-fejl"><p class="field__error" id="f-navn-fejl">Skriv dit navn.</p></div>
-        <div class="field" data-either><label for="f-tlf">Telefon</label><input id="f-tlf" name="telefon" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="f-kontakt-hjaelp f-tlf-fejl"><p class="field__error" id="f-tlf-fejl">Skriv telefon eller e-mail, så vi kan svare dig.</p></div>
+        <label class="field"><span>Navn *</span><input name="navn" autocomplete="name" required></label>
+        <label class="field" data-either><span>Telefon</span><input name="telefon" type="tel" autocomplete="tel" inputmode="tel"></label>
       </div>
-      <div class="field" data-either><label for="f-mail">E-mail</label><input id="f-mail" name="email" type="email" autocomplete="email" aria-describedby="f-kontakt-hjaelp f-mail-fejl"><p class="field__error" id="f-mail-fejl">Skriv en gyldig e-mailadresse, eller udfyld telefon i stedet.</p></div>
-      <p class="field__help" id="f-kontakt-hjaelp">Udfyld telefon eller e-mail. Vi svarer, hvor det passer dig.</p>
+      <label class="field" data-either><span>E-mail</span><input name="email" type="email" autocomplete="email"></label>
+      <p class="form__hint">Udfyld telefon eller e-mail, så vi kan svare dig.</p>
       <fieldset class="field">
-        <legend>Det handler om (valgfrit)</legend>
+        <legend>Min henvendelse drejer sig om</legend>
         <div class="pill-options">
           ${['Forundersøgelse', ...treatments.map((t) => t.name), 'ZO Skin Health', 'Andet']
             .map((n) => `<label class="pill-option"><input type="checkbox" name="emne" value="${esc(n)}"><span>${n}</span></label>`)
             .join('')}
         </div>
       </fieldset>
-      <div class="field"><label for="f-besked">Besked (valgfri)</label><textarea id="f-besked" name="besked" rows="5" aria-describedby="f-besked-hjaelp"></textarea><p class="field__help" id="f-besked-hjaelp">Skriv ikke helbredsoplysninger her. Dem tager vi ved forundersøgelsen.</p></div>
-      <div class="consent"><input type="checkbox" id="f-samtykke" name="samtykke" required><label for="f-samtykke">Clinic 360 må bruge mine oplysninger til at svare på min besked. Se <a href="${url('cookie-og-privatlivspolitik/')}">privatlivspolitikken</a>.</label></div>
-      <button class="btn btn--primary" type="submit">Send besked</button>
+      <label class="field"><span>Besked</span><textarea name="besked" rows="5"></textarea></label>
+      <label class="consent"><input type="checkbox" name="samtykke" required><span>Jeg accepterer, at Clinic 360 behandler mine oplysninger for at besvare min henvendelse. Læs vores <a href="${url('cookie-og-privatlivspolitik/')}">privatlivspolitik</a>.</span></label>
+      <p class="form__hint">Undlad at skrive helbredsoplysninger i formularen. Dem tager vi ved forundersøgelsen.</p>
+      <button class="btn btn--primary" type="submit">Send besked ${icon.arrow}</button>
       <p class="form__status" role="status" aria-live="polite"></p>
     </form>
   </div>
 </section>
+${visitSection()}
 `;
   return layout({
     path: 'kontakt/',
@@ -505,7 +543,7 @@ ${pageHero({
 
 function privacy() {
   const body = `
-${pageHero({ title: 'Cookie- og privatlivspolitik' })}
+${pageHero({ eyebrow: 'Juridisk', title: 'Cookie- og privatlivspolitik' })}
 <section class="section section--tight">
   <div class="container narrow prose">
     <h2 class="h3">Cookies på clinic360.dk</h2>
@@ -542,11 +580,13 @@ ${pageHero({ title: 'Cookie- og privatlivspolitik' })}
 }
 
 function notFound() {
-  const body = pageHero({
-    title: 'Siden findes ikke',
-    lead: 'Siden er måske flyttet. Gå til forsiden, eller se behandlinger og priser.',
-    actions: btn('Til forsiden', url(), { variant: 'primary' }) + pricesBtn(),
-  });
+  const body = `
+${pageHero({
+  eyebrow: '404',
+  title: 'Siden findes <em>ikke</em>',
+  lead: 'Siden er måske flyttet. Prøv en af genvejene herunder.',
+  actions: btn('Til forsiden', url(), { variant: 'primary' }) + btn('Se behandlinger', url('behandlinger/'), { variant: 'outline' }) + btn('Priser', url('priser/'), { variant: 'outline' }),
+})}`;
   return layout({ path: '404.html', title: 'Siden findes ikke', description: 'Siden blev ikke fundet.', body });
 }
 

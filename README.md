@@ -7,9 +7,7 @@ Statisk, hurtig hjemmeside til [clinic360.dk](https://clinic360.dk). Den erstatt
 ## Design
 
 - **Farver** (uændrede fra den nuværende profil): mokka `#967969`, sand `#DED6CF`, sort `#222222`, salvie `#A5AEA8`, tekst `#6B6668`. Mørkere mokka `#7A5D4E` bruges til små tekster af hensyn til læsbarheden (kontrast).
-- **Skrift:** *Albert Sans* (af den danske designer Andreas Rasmussen, inspireret af skandinavisk design) i én familie med flere vægte. Hostet på egen server (ikke Google Fonts), så siden ikke sender besøgendes IP-adresse til Google (GDPR).
-- **Ikoner:** Phosphor (light), indlejret ved build.
-- **Lys og mørk tilstand** følger brugerens systemindstilling.
+- **Skrifter:** *Instrument Serif* til overskrifter og *Hanken Grotesk* til brødtekst. Begge er hostet på egen server (ikke Google Fonts), så siden ikke sender besøgendes IP-adresse til Google (GDPR).
 - **Sidehoveder** bruger klinikkens egne brede bannerbilleder som baggrund med teksten ovenpå.
 - Mobil først: fast "Ring / Priser / Book tid"-bjælke i bunden på telefon, store trykflader, ingen vandret scroll.
 
