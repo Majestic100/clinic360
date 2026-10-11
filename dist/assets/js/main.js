@@ -134,8 +134,10 @@
       const filled = either.filter((f) => f.value.trim());
       if (!filled.length) invalid.push(...either);
       else invalid.push(...filled.filter((f) => !f.checkValidity()));
+      $$('[aria-invalid]', form).forEach((f) => f.removeAttribute('aria-invalid'));
+      if (form.elements._gotcha?.value) return; // spam-robot
       if (invalid.length) {
-        invalid.forEach((f) => f.classList.add('is-invalid'));
+        invalid.forEach((f) => { f.classList.add('is-invalid'); f.setAttribute('aria-invalid', 'true'); f.setAttribute('aria-describedby', 'form-status'); });
         status.textContent = 'Udfyld de markerede felter: navn, telefon eller e-mail, og sæt flueben ved privatlivspolitikken.';
         status.classList.add('is-error');
         invalid[0].focus();

@@ -505,7 +505,7 @@ html:not(.js) .ba__handle, html:not(.js) .ba__range { display: none; }
   width: 100%; font: inherit; color: var(--ink); background: var(--sand-50); border: 1px solid var(--line); border-radius: 12px;
   padding: 14px 16px; min-height: 52px; transition: border-color 0.2s, background 0.2s;
 }
-.field input:focus, .field textarea:focus { outline: none; border-color: var(--mocha); background: var(--white); }
+.field input:focus, .field textarea:focus { outline: 2px solid var(--mocha-700); outline-offset: 0; border-color: transparent; background: var(--white); }
 .field textarea { resize: vertical; }
 .field .is-invalid, .field input:user-invalid { border-color: #b2483a; }
 .pill-options { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -749,3 +749,6 @@ body.menu-open .action-bar { display: none; }
 .price-quote blockquote { margin: 0; }
 .price-quote p { color: var(--ink); line-height: 1.5; }
 .price-quote figcaption { font-size: 0.9rem; }
+
+/* Honeypot mod spam (skjult for mennesker, ikke for robotter) */
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }

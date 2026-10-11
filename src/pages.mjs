@@ -7,6 +7,16 @@ import {
 import { url, asset, esc, kr, plain, img, icon, stars } from './helpers.mjs';
 
 const ext = 'target="_blank" rel="noopener"';
+const faqLd = (items) => ({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+});
+const crumbLd = (items) => ({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map(([name, path], i) => ({ '@type': 'ListItem', position: i + 1, name, item: site.url + '/' + path })),
+});
 const heroBg = {
   injektion: { bg: 'bg-consult', alt: 'Ditte vejleder en kunde før behandling', posMobile: '84%' },
   hud: { bg: 'bg-skin', alt: 'Ansigtsbehandling i klinikken', posMobile: '42%' },
@@ -31,7 +41,9 @@ function jsonLd() {
     url: site.url,
     telephone: site.phone,
     email: site.email,
-    image: site.url + '/assets/img/team-hero-1080.webp',
+    image: site.url + '/assets/img/og-clinic360.jpg',
+    logo: site.url + '/assets/img/logo-dark.png',
+    areaServed: ['Sønderborg', 'Als', 'Sydals'],
     address: {
       '@type': 'PostalAddress',
       streetAddress: site.address.street,
@@ -44,9 +56,10 @@ function jsonLd() {
   });
 }
 
-export function layout({ path, title, description, active = '', body, ogImage = 'team-hero-1080.webp' }) {
+export function layout({ path, title, description, active = '', body, ogImage = 'og-clinic360.jpg', noindex = false, ld = [] }) {
   const canonical = site.url + '/' + path;
-  const fullTitle = path === '' ? `${site.name} · Kosmetisk speciallægeklinik i Sønderborg & Sydals` : `${title} · ${site.name}`;
+  const fullTitle = title;
+  const preview = process.env.PREVIEW === '1';
   return `<!doctype html>
 <html lang="da">
 <head>
@@ -54,7 +67,7 @@ export function layout({ path, title, description, active = '', body, ogImage = 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(fullTitle)}</title>
 <meta name="description" content="${esc(description)}">
-<link rel="canonical" href="${canonical}">
+${noindex || preview ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${canonical}">`}
 <meta name="theme-color" content="#F7F4F1">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="da_DK">
@@ -63,13 +76,20 @@ export function layout({ path, title, description, active = '', body, ogImage = 
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${canonical}">
 <meta property="og:image" content="${site.url}/assets/img/${ogImage}">
-<link rel="icon" href="${asset('img/favicon.png')}" type="image/png">
-<link rel="apple-touch-icon" href="${asset('img/favicon.png')}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mette og Ditte i Clinic 360">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="${asset('img/favicon-32.png')}" type="image/png" sizes="32x32">
+<link rel="icon" href="${asset('img/favicon.png')}" type="image/png" sizes="256x256">
+<link rel="apple-touch-icon" href="${asset('img/apple-touch-icon.png')}">
+<link rel="manifest" href="${url('site.webmanifest')}">
 <link rel="preload" href="${asset('fonts/hanken-grotesk-var.woff2')}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${asset('fonts/instrument-serif.woff2')}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${asset('css/style.css')}">
 <script>document.documentElement.classList.add('js')</script>
 <script type="application/ld+json">${jsonLd()}</script>
+${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join('\n')}
 </head>
 <body>
 ${header(active)}
@@ -155,8 +175,8 @@ ${visitSection()}
 `;
   return layout({
     path: '',
-    title: 'Forside',
-    description: 'Clinic 360 er en kosmetisk speciallægeklinik i Hørup på Als nær Sønderborg. Botox, filler, skinbooster, HydraFacial, PRF m.m. Gratis forundersøgelse og 10 % rabat på første behandling.',
+    title: 'Clinic 360 | Kosmetisk klinik på Als ved Sønderborg',
+    description: 'Kosmetisk speciallægeklinik i Hørup på Als ved Sønderborg. Botox, filler, skinbooster, HydraFacial og PRF. Gratis forundersøgelse og 10 % rabat.',
     body,
   });
 }
@@ -210,7 +230,7 @@ ${ctaBand()}
 `;
   return layout({
     path: 'behandlinger/',
-    title: 'Behandlinger',
+    title: 'Kosmetiske behandlinger på Als | Clinic 360',
     active: 'behandlinger',
     description: 'Se alle behandlinger hos Clinic 360: botox, filler, skinbooster, Profhilo, PRF, kemisk peeling, Skinpen, HydraFacial og fedtfrysning.',
     body,
@@ -322,10 +342,10 @@ ${ctaBand()}
 `;
   return layout({
     path: t.slug + '/',
-    title: t.name,
+    title: `${t.name} på Als ved Sønderborg | Clinic 360`,
     active: 'behandlinger',
-    description: `${plain(t.lead)} Pris fra ${kr(minPrice(t))}. Clinic 360 i Hørup nær Sønderborg.`.slice(0, 300),
-    ogImage: `${t.img}-700.webp`,
+    description: `${t.short} Pris fra ${kr(minPrice(t))}. Gratis forundersøgelse hos Clinic 360 på Als ved Sønderborg.`,
+    ld: [crumbLd([['Forside', ''], ['Behandlinger', 'behandlinger/'], [t.name, t.slug + '/']]), ...(t.faq ? [faqLd(t.faq)] : [])],
     body,
   });
 }
@@ -394,9 +414,10 @@ ${reviewsSection({ compact: true })}
 `;
   return layout({
     path: 'priser/',
-    title: 'Priser',
+    title: 'Priser på kosmetiske behandlinger | Clinic 360',
     active: 'priser',
-    description: 'Priser på botox, filler, skinbooster, Profhilo, PRF, kemisk peeling, Skinpen, HydraFacial og fedtfrysning hos Clinic 360. Gratis forundersøgelse og 10 % velkomstrabat.',
+    description: 'Se priser på botox, filler, skinbooster, Profhilo, PRF, peeling, Skinpen, HydraFacial og fedtfrysning. Gratis forundersøgelse og 10 % velkomstrabat.',
+    ld: [faqLd(priceFaq)],
     body,
   });
 }
@@ -420,7 +441,7 @@ ${ctaBand()}
 `;
   return layout({
     path: 'foer-efter/',
-    title: 'Før & efter',
+    title: 'Før og efter-billeder | Clinic 360',
     active: 'foer-efter',
     description: 'Se før og efter-billeder af botox og filler hos Clinic 360 i Hørup nær Sønderborg. Naturlige resultater fra vores egne kunder.',
     body,
@@ -472,10 +493,9 @@ ${ctaBand()}
 `;
   return layout({
     path: 'om-os/',
-    title: 'Om os',
+    title: 'Om os: sygeplejersker og speciallæge | Clinic 360',
     active: 'om-os',
     description: 'Mød Mette Appel og Ditte B. R. Thordsen, kosmetiske specialsygeplejersker, og speciallæge Kristian hos Clinic 360 i Hørup nær Sønderborg.',
-    ogImage: 'team-standing-1080.webp',
     body,
   });
 }
@@ -520,11 +540,12 @@ ${pageHero({
             .join('')}
         </div>
       </fieldset>
+      <div class="hp" aria-hidden="true"><label>Lad dette felt være tomt <input name="_gotcha" tabindex="-1" autocomplete="off"></label></div>
       <label class="field"><span>Besked</span><textarea name="besked" rows="5"></textarea></label>
       <label class="consent"><input type="checkbox" name="samtykke" required><span>Jeg accepterer, at Clinic 360 behandler mine oplysninger for at besvare min henvendelse. Læs vores <a href="${url('cookie-og-privatlivspolitik/')}">privatlivspolitik</a>.</span></label>
       <p class="form__hint">Undlad at skrive helbredsoplysninger i formularen. Dem tager vi ved forundersøgelsen.</p>
       <button class="btn btn--primary" type="submit">Send besked ${icon.arrow}</button>
-      <p class="form__status" role="status" aria-live="polite"></p>
+      <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
     </form>
   </div>
 </section>
@@ -532,7 +553,7 @@ ${visitSection()}
 `;
   return layout({
     path: 'kontakt/',
-    title: 'Kontakt',
+    title: 'Kontakt og åbningstider | Clinic 360',
     active: 'kontakt',
     description: `Kontakt Clinic 360 på ${site.phone} eller ${site.email}. Kallehave 24, 6470 Sydals. Se åbningstider og book en gratis forundersøgelse.`,
     body,
@@ -573,7 +594,7 @@ ${pageHero({ eyebrow: 'Juridisk', title: 'Cookie- og privatlivspolitik' })}
 `;
   return layout({
     path: 'cookie-og-privatlivspolitik/',
-    title: 'Cookie- og privatlivspolitik',
+    title: 'Cookie- og privatlivspolitik | Clinic 360',
     description: 'Læs hvordan Clinic 360 bruger cookies og behandler dine personoplysninger.',
     body,
   });
@@ -587,7 +608,7 @@ ${pageHero({
   lead: 'Siden er måske flyttet. Prøv en af genvejene herunder.',
   actions: btn('Til forsiden', url(), { variant: 'primary' }) + btn('Se behandlinger', url('behandlinger/'), { variant: 'outline' }) + btn('Priser', url('priser/'), { variant: 'outline' }),
 })}`;
-  return layout({ path: '404.html', title: 'Siden findes ikke', description: 'Siden blev ikke fundet.', body });
+  return layout({ path: '404.html', title: 'Siden findes ikke | Clinic 360', description: 'Siden blev ikke fundet. Se behandlinger, priser eller kontakt Clinic 360.', body, noindex: true });
 }
 
 export function allPages() {

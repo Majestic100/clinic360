@@ -30,7 +30,8 @@ jobs:
       - id: pages
         uses: actions/configure-pages@v5
       - name: Byg siden
-        run: BASE_PATH="${{ steps.pages.outputs.base_path }}/" node build.mjs
+        # PREVIEW=1 giver noindex på alle sider, så forhåndsvisningen ikke konkurrerer med clinic360.dk i Google
+        run: PREVIEW=1 BASE_PATH="${{ steps.pages.outputs.base_path }}/" node build.mjs
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
