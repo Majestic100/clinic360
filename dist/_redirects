@@ -8,6 +8,8 @@
 /cmsms_doctor_services/sygeplejerske/ /om-os/ 301
 /cmsms_doctor_services/dermatolog/ /om-os/ 301
 /tag/botox/ /botox/ 301
+/services/permanent-harfjerning/ /laser-haarreducering/ 301
+/service_category/smooth-permanent-harfjerning/ /laser-haarreducering/ 301
 /feed/ / 301
 /how-to-improve-skin-condition-secrets-of-perfect-skin/ /404.html 410
 /laser-facial-rejuvenation-what-is-worth-knowing-about-the-procedure/ /404.html 410
@@ -20,10 +22,8 @@
 /5-tips-on-how-to-look-younger-than-your-age/ /404.html 410
 /cmsms_doctor/* /404.html 410
 /cmsms_doctor_services/godkendt-behandler/ /404.html 410
-/services/permanent-harfjerning/ /404.html 410
 /services/negle/ /404.html 410
 /service_category/professionelle-neglebehandlinger/ /404.html 410
-/service_category/smooth-permanent-harfjerning/ /404.html 410
 /trustpilot-reviews/* /404.html 410
 /shop/ /404.html 410
 /cart/ /404.html 410
