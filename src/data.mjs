@@ -482,6 +482,57 @@ export const treatments = [
     related: ['kemisk-peeling', 'skinpen', 'skinbooster'],
   },
   {
+    slug: 'laser-karspraengninger',
+    name: 'Laser mod karsprængninger',
+    category: 'hud',
+    // AI-genereret stemningsbillede, ikke klinikkens behandler eller lokale. Skal skiftes til et rigtigt foto før lancering.
+    img: 't-laser-kar',
+    short: 'Målrettet laser, der reducerer synlige kar og rødme i huden.',
+    headline: 'En mere <em>ensartet</em> og rolig hud',
+    lead: 'Synlige blodkar og karsprængninger kan give huden et rødt og ujævnt udtryk. Med laser kan vi målrettet behandle de små synlige kar og reducere rødme, så huden fremstår mere ensartet og rolig.',
+    discount: 10,
+    facts: [
+      ['Forundersøgelse', 'Individuel vurdering af hud og kar'],
+      ['Forløb', 'Én eller flere behandlinger'],
+      ['Lige efter', 'Huden kan være rød, varm og let hævet'],
+      ['Sol', 'Beskyt huden før og efter'],
+    ],
+    body: [
+      {
+        h: 'Hvordan virker behandlingen?',
+        p: [
+          'Laseren udsender lys med en bølgelængde, der målrettes blodets farvestof, hæmoglobin. Lyset omdannes til varme i blodkarret, så karret påvirkes og efterfølgende gradvist nedbrydes og fjernes af kroppen.',
+          'Behandlingen er præcis og gør det muligt at arbejde målrettet med de synlige kar uden unødigt at påvirke den omkringliggende hud.',
+        ],
+      },
+      {
+        h: 'Hvad kan behandles?',
+        p: [
+          'Laserbehandling kan anvendes til forskellige former for overfladiske, synlige kar og rødme. Det kan blandt andet være karsprængninger i ansigtet, typisk omkring næse, kinder og hage, samt udvalgte synlige kar andre steder på kroppen.',
+          'Ved konsultationen vurderer vi huden, typen og størrelsen af karrene og tager stilling til, om laser er den rette behandling.',
+        ],
+      },
+      {
+        h: 'Er laserbehandling noget for dig?',
+        p: [
+          'Ikke alle typer rødme og synlige kar skal behandles på samme måde. Derfor starter vi med en individuel vurdering af din hud og dine kar, så vi kan vejlede dig om forventet effekt, antal behandlinger og det behandlingsforløb, der passer bedst til dig.',
+          'Hos Clinic360 har vi fokus på naturlige resultater og på at forbedre huden uden at ændre dit naturlige udtryk.',
+        ],
+      },
+    ],
+    suited: ['Karsprængninger omkring næse, kinder og hage', 'Rødme og overfladiske, synlige kar', 'Udvalgte synlige kar på kroppen'],
+    steps: [],
+    // Klinikken har ikke sendt priser endnu. Tom liste = "Pris efter forundersøgelse" overalt på siden.
+    prices: [],
+    faq: [
+      { q: 'Hvor mange behandlinger er nødvendige?', a: 'Nogle kar reagerer allerede tydeligt efter én behandling, mens andre kræver et behandlingsforløb. Antallet afhænger blandt andet af karrenes størrelse, dybde og omfang samt hudens individuelle respons. Behandlingen fjerner eller reducerer eksisterende synlige kar, men forhindrer ikke huden i at danne nye kar med tiden. Derfor kan vedligeholdende behandling senere blive relevant.' },
+      { q: 'Hvordan ser huden ud efter behandlingen?', a: 'Umiddelbart efter behandlingen kan huden være rød, varm og let hævet. De behandlede kar kan i en periode fremstå mørkere eller mere tydelige, inden de gradvist reduceres. Reaktionen varierer fra person til person og afhænger også af behandlingens intensitet og område.' },
+      { q: 'Skal jeg tage hensyn til solen?', a: 'Ja. Huden skal beskyttes godt mod solen før og efter behandlingen, og vi gennemgår altid de relevante forholdsregler og efterpleje med dig.' },
+    ],
+    results: [],
+    related: ['laser-haarreducering', 'pfr-hud', 'hydrafacial'],
+  },
+  {
     slug: 'fedtfrysning',
     name: 'Fedtfrysning',
     category: 'krop',
@@ -523,6 +574,72 @@ export const treatments = [
     ],
     results: [],
     related: ['pfr-har', 'hydrafacial', 'skinpen'],
+  },  {
+    slug: 'laser-haarreducering',
+    name: 'Laser hårreducering',
+    category: 'krop',
+    img: 't-laser-haar',
+    short: 'Permanent reduktion af uønsket hårvækst på krop og i ansigt.',
+    headline: 'Mindre hårvækst. Glattere hud. <em>Mindre tid</em> på barbering.',
+    lead: 'Permanent hårreducering med laser er til dig, der ønsker en effektiv og langvarig reduktion af uønsket hårvækst, hvad enten det er på benene, i armhulerne, bikinilinjen, ansigtet eller andre områder på kroppen.',
+    discount: 10,
+    facts: [
+      ['Forløb', 'Flere behandlinger'],
+      ['Mellem behandlinger', 'Barbering, ikke voks eller plukning'],
+      ['Virker bedst på', 'Hår med pigment'],
+      ['Kombinationsrabat', '50 % på øvrige områder'],
+    ],
+    body: [
+      {
+        h: 'Til dig, der er træt af barbering',
+        p: [
+          'Behandlingen kan samtidig være en god løsning, hvis du oplever gener i forbindelse med barbering såsom røde knopper, irritation eller indgroede hår.',
+        ],
+      },
+      {
+        h: 'Hvordan virker laser hårreducering?',
+        p: [
+          'Laseren målretter pigmentet i håret og sender kontrolleret lysenergi ned til hårsækken. Her omdannes energien til varme, som påvirker hårsækkens evne til at producere nye hår.',
+          'Laser virker på de hår, der befinder sig i den aktive vækstfase. Da alle hår ikke er i samme vækstfase på samme tid, er det nødvendigt med flere behandlinger for at opnå den bedst mulige hårreduktion.',
+          'Undervejs i forløbet vil du typisk opleve, at hårene bliver færre, finere og vokser langsommere.',
+        ],
+      },
+      {
+        h: 'Tryghed og realistiske forventninger',
+        p: [
+          'Hos Clinic360 tager vi altid udgangspunkt i dig. Inden vi starter dit behandlingsforløb, vurderer vi din hud, hårvækst og dine ønsker. Herefter lægger vi sammen en plan for dit forløb og gennemgår, hvad du realistisk kan forvente af behandlingen.',
+          'For os handler et godt resultat ikke om at love fuldstændig hårfrihed, men om at skabe en synlig, langvarig og tilfredsstillende reduktion af uønsket hårvækst.',
+        ],
+      },
+    ],
+    suited: ['Armhuler', 'Bikini og intimområde', 'Ben og lår', 'Arme', 'Ryg og bryst', 'Mave', 'Hage og overlæbe', 'Hals og nakke'],
+    steps: [],
+    prices: [
+      {
+        rows: [
+          { label: 'Armhuler', price: 500 },
+          { label: 'Bikinilinje', price: 500 },
+          { label: 'Overlæbe', price: 500 },
+          { label: 'Underben', price: 1000 },
+          { label: 'Arme', price: 1000 },
+          { label: 'Brazil', price: 1200 },
+          { label: 'Ryg eller mave', price: 1500 },
+          { label: 'Hele ben', price: 2000 },
+        ],
+        note: '<strong>Kombinationsrabat:</strong> Fuld pris for det dyreste område og 50 % rabat på alle øvrige områder i samme behandling.',
+      },
+    ],
+    faq: [
+      { q: 'Hvor mange behandlinger skal jeg have?', a: 'Det er individuelt og afhænger blandt andet af din hårtype, hårfarve, hudtype, behandlingsområdet og eventuelle hormonelle faktorer. Du skal derfor forvente et behandlingsforløb med flere behandlinger. Vi reagerer alle forskelligt, og det er derfor ikke muligt at garantere et bestemt resultat eller fuldstændig hårfrihed. Målet er en permanent reduktion af hårvæksten, og enkelte kan efter endt forløb have behov for vedligeholdende behandlinger.' },
+      { q: 'Gør det ondt?', a: 'De fleste oplever behandlingen som ganske overkommelig. Det kan føles som korte varme eller stikkende fornemmelser i huden, og oplevelsen varierer alt efter hvilket område, der behandles, og hvor tæt hårvæksten er. Efter behandlingen kan huden være let rød og varm, og der kan komme en smule hævelse omkring hårsækkene. Dette er normalt forbigående.' },
+      { q: 'Må jeg barbere mig mellem behandlingerne?', a: 'Ja, det må du gerne. Faktisk er barbering den hårfjerningsmetode, du skal benytte under dit laserforløb. Du må derimod ikke vokse, plukke eller epilere hårene, da hårsækken skal være intakt for, at laseren kan målrette den. Vi vejleder dig i forbindelse med dit forløb om, hvornår området skal barberes inden din næste behandling.' },
+      { q: 'Hvornår kan jeg se resultat?', a: 'Allerede efter de første behandlinger vil mange begynde at opleve en forskel i hårvæksten. De behandlede hår falder ikke nødvendigvis ud med det samme. I dagene og ugerne efter behandlingen vil hårene gradvist løsne sig, og efterhånden som behandlingsforløbet skrider frem, vil hårvæksten typisk blive mere sparsom og hårene finere. Det endelige resultat vurderes først efter et gennemført behandlingsforløb.' },
+      { q: 'Hvad med sol?', a: 'Sol og laser kræver lidt ekstra opmærksomhed. Huden skal være egnet til behandling på dagen, og solpåvirkning kan have betydning for, hvilke indstillinger der kan anvendes, og om behandlingen kan gennemføres sikkert. Derfor får du altid grundig vejledning omkring sol, solarium og selvbruner både før og efter din behandling. Brug altid høj solbeskyttelse på områder, der udsættes for sol.' },
+      { q: 'Virker laser på alle hår?', a: 'Laserbehandling er afhængig af pigmentet i håret. Derfor opnås den bedste effekt på hår, der indeholder tilstrækkeligt pigment. Meget lyse, hvide, grå og røde hår indeholder meget lidt eller intet af det pigment, som laseren målretter, og kan derfor være vanskelige eller ikke mulige at behandle effektivt. Vi vurderer altid din hud- og hårtype inden opstart, så du får en realistisk forventning til, hvad vi kan opnå.' },
+      { q: 'Hvad koster laser hårreducering?', a: 'Priserne starter ved 500 kr. for fx armhuler, bikinilinje eller overlæbe og går op til 2.000 kr. for hele ben. Behandler vi flere områder i samme behandling, betaler du fuld pris for det dyreste område og får 50 % rabat på resten.' },
+    ],
+    results: [],
+    related: ['laser-karspraengninger', 'fedtfrysning', 'pfr-har'],
   },
 ];
 

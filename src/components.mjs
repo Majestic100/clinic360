@@ -2,7 +2,14 @@ import { site, rating, hours, treatments, categories, results, resultTags, revie
 import { url, asset, esc, kr, plain, img, icon, stars, pngSize } from './helpers.mjs';
 
 export const bySlug = Object.fromEntries(treatments.map((t) => [t.slug, t]));
-export const minPrice = (t) => Math.min(...t.prices.flatMap((g) => g.rows.filter((r) => !r.noFrom).map((r) => r.price)));
+// null betyder, at klinikken ikke har prissat behandlingen endnu. Så vises NO_PRICE i stedet for et beløb.
+export const minPrice = (t) => {
+  const p = t.prices.flatMap((g) => g.rows.filter((r) => !r.noFrom).map((r) => r.price));
+  return p.length ? Math.min(...p) : null;
+};
+export const NO_PRICE = 'Pris efter forundersøgelse';
+// Kort udgave til kort og menu, hvor pladsen er trang
+const fromKr = (t, wrap = (x) => x) => (minPrice(t) === null ? 'Individuel pris' : `fra ${wrap(kr(minPrice(t)))}`);
 
 const ext = 'target="_blank" rel="noopener"';
 
@@ -55,7 +62,7 @@ function megaMenu() {
             <p class="mega__title">${c.name}</p>
             <ul>${treatments
               .filter((t) => t.category === c.id)
-              .map((t) => `<li><a href="${url(t.slug + '/')}"><span>${t.name}</span><span class="mega__price">fra ${kr(minPrice(t))}</span></a></li>`)
+              .map((t) => `<li><a href="${url(t.slug + '/')}"><span>${t.name}</span><span class="mega__price">${fromKr(t)}</span></a></li>`)
               .join('')}</ul>
           </div>`
         )
@@ -179,6 +186,7 @@ export function footer() {
         <li><a href="${url('om-os/')}">Om os</a></li>
         <li><a href="${url('priser/')}">Priser</a></li>
         <li><a href="${url('cookie-og-privatlivspolitik/')}">Cookie- og privatlivspolitik</a></li>
+        <li><a href="${url('handelsbetingelser/')}">Handelsbetingelser</a></li>
       </ul>
     </div>
   </div>
@@ -219,13 +227,14 @@ export function treatmentCard(t, { sizes = '(min-width: 1100px) 30vw, (min-width
       <div class="t-card__body">
         <h3 class="t-card__title">${t.name}</h3>
         <p class="t-card__text">${t.short}</p>
-        <p class="t-card__meta"><span>fra <strong>${kr(minPrice(t))}</strong></span><span class="t-card__arrow">${icon.arrow}</span></p>
+        <p class="t-card__meta"><span>${fromKr(t, (x) => `<strong>${x}</strong>`)}</span><span class="t-card__arrow">${icon.arrow}</span></p>
       </div>
     </a>
   </article>`;
 }
 
 export function priceTable(t) {
+  if (!t.prices.length) return `<p class="price-table__empty">${NO_PRICE}. Vi vurderer din hud og giver dig en pris, når vi ved, hvor mange behandlinger du har brug for.</p>`;
   return t.prices
     .map(
       (g) => `${g.group ? `<p class="price-table__group">${g.group}</p>` : ''}
@@ -236,7 +245,7 @@ export function priceTable(t) {
               `<li class="price-table__row"><span class="price-table__label">${r.label}</span><span class="price-table__price">${r.from ? '<small>fra</small> ' : ''}${kr(r.price)}</span></li>`
           )
           .join('')}
-      </ul>`
+      </ul>${g.note ? `<p class="price-table__note">${g.note}</p>` : ''}`
     )
     .join('');
 }
@@ -250,7 +259,7 @@ export function priceCard(t) {
         <h3 class="price-card__title">${t.name}</h3>
         <p class="price-card__text">${t.short}</p>
       </div>
-      <p class="price-card__from"><small>fra</small>${kr(minPrice(t))}</p>
+      ${minPrice(t) === null ? '' : `<p class="price-card__from"><small>fra</small>${kr(minPrice(t))}</p>`}
     </header>
     <div class="price-card__body">${priceTable(t)}</div>
     <p class="price-card__badge">${icon.gift} ${t.discount} % rabat på din første behandling</p>

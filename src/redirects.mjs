@@ -12,6 +12,9 @@ export const redirects301 = [
   ['/cmsms_doctor_services/sygeplejerske/', '/om-os/'],
   ['/cmsms_doctor_services/dermatolog/', '/om-os/'],
   ['/tag/botox/', '/botox/'],
+  // Klinikken tilbyder laser hårreducering fra november 2026, så de gamle adresser peger nu dertil
+  ['/services/permanent-harfjerning/', '/laser-haarreducering/'],
+  ['/service_category/smooth-permanent-harfjerning/', '/laser-haarreducering/'],
   ['/feed/', '/'],
 ];
 
@@ -29,10 +32,8 @@ export const gone410 = [
   // Profiler, ydelser og anmeldelser der ikke hører til klinikken
   '/cmsms_doctor/*',
   '/cmsms_doctor_services/godkendt-behandler/',
-  '/services/permanent-harfjerning/',
   '/services/negle/',
   '/service_category/professionelle-neglebehandlinger/',
-  '/service_category/smooth-permanent-harfjerning/',
   '/trustpilot-reviews/*',
   // Webshop og WordPress-systemsider
   '/shop/', '/cart/', '/new-cart/', '/checkout/', '/my-account/', '/vipps_checkout/',
