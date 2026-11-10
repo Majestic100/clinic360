@@ -485,6 +485,7 @@ export const treatments = [
     slug: 'laser-karspraengninger',
     name: 'Laser mod karsprængninger',
     category: 'hud',
+    // AI-genereret stemningsbillede, ikke klinikkens behandler eller lokale. Skal skiftes til et rigtigt foto før lancering.
     img: 't-laser-kar',
     short: 'Målrettet laser, der reducerer synlige kar og rødme i huden.',
     headline: 'En mere <em>ensartet</em> og rolig hud',
