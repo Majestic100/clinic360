@@ -591,6 +591,8 @@ html:not(.js) .ba__handle, html:not(.js) .ba__range { display: none; }
 .price-table__price { font-weight: 600; color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .price-table__price small { font-weight: 400; color: var(--text); font-size: 0.82em; }
 .price-table__group { margin: 18px 0 2px; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: var(--mocha-700); }
+.price-table__note { margin: 14px 0 0; padding: 12px 14px; border-radius: 10px; background: var(--sand); color: var(--ink); font-size: 0.9rem; line-height: 1.5; }
+.price-table__empty { margin: 0; padding: 14px 0; color: var(--ink); line-height: 1.5; }
 
 .perks { padding-bottom: clamp(32px, 5vw, 56px); }
 .perks__grid { display: grid; gap: 12px; }

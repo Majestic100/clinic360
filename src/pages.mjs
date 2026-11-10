@@ -2,7 +2,7 @@ import { site, rating, treatments, categories, results, steps, hours, reviews } 
 import {
   header, footer, trustBar, treatmentCard, priceCard, priceTable, resultsGrid, reviewsSection, stepsList, faqList,
   zoSection, ctaBand, teamGrid, pageHero, breadcrumbs, sectionHead, bookBtn, btn, eyebrow, hoursList, stpsBadge,
-  bySlug, minPrice, baCard, bgHero,
+  bySlug, minPrice, NO_PRICE, baCard, bgHero,
 } from './components.mjs';
 import { url, asset, esc, kr, plain, img, icon, stars } from './helpers.mjs';
 
@@ -141,7 +141,7 @@ ${trustBar()}
 
 <section class="section section--tint">
   <div class="container">
-    ${sectionHead({ eyebrow: 'Behandlinger', title: 'Udvalgte behandlinger', lead: 'Fra blød rynkebehandling til medicinsk hudpleje. Alle priser står tydeligt.', action: btn('Se alle 10 behandlinger', url('behandlinger/'), { variant: 'outline', icon: icon.arrow }) })}
+    ${sectionHead({ eyebrow: 'Behandlinger', title: 'Udvalgte behandlinger', lead: 'Fra blød rynkebehandling til medicinsk hudpleje. Alle priser står tydeligt.', action: btn(`Se alle ${treatments.length} behandlinger`, url('behandlinger/'), { variant: 'outline', icon: icon.arrow }) })}
     <div class="t-grid t-grid--home">${featured.map((t) => treatmentCard(t)).join('')}${treatments
       .filter((t) => !featured.includes(t))
       .map((t) => treatmentCard(t, { extra: true }))
@@ -249,7 +249,7 @@ ${bgHero({
   eyebrow: t.name,
   title: t.headline,
   lead: t.lead,
-  extra: `<div class="t-hero__price"><span>Pris fra</span><strong>${kr(minPrice(t))}</strong><a class="link" href="#priser">Se alle priser ${icon.arrow}</a></div>`,
+  extra: `<div class="t-hero__price">${minPrice(t) === null ? `<span>${NO_PRICE}</span>` : `<span>Pris fra</span><strong>${kr(minPrice(t))}</strong>`}<a class="link" href="#priser">Se ${t.prices.length ? 'alle priser' : 'mere'} ${icon.arrow}</a></div>`,
   actions: bookBtn('primary', 'Book tid') + btn('Gratis forundersøgelse', url('kontakt/'), { variant: 'outline' }),
   crumbs: breadcrumbs([{ href: 'behandlinger/', label: 'Behandlinger' }, { label: t.name }]),
   ...heroBg[t.category],
@@ -348,7 +348,7 @@ ${ctaBand()}
     path: t.slug + '/',
     title: `${t.name} på Als ved Sønderborg | Clinic 360`,
     active: 'behandlinger',
-    description: `${t.short} Pris fra ${kr(minPrice(t))}. Gratis forundersøgelse hos Clinic 360 på Als ved Sønderborg.`,
+    description: `${t.short} ${minPrice(t) === null ? NO_PRICE : 'Pris fra ' + kr(minPrice(t))}. Gratis forundersøgelse hos Clinic 360 på Als ved Sønderborg.`,
     ld: [crumbLd([['Forside', ''], ['Behandlinger', 'behandlinger/'], [t.name, t.slug + '/']]), ...(t.faq ? [faqLd(t.faq)] : [])],
     body,
   });
@@ -420,7 +420,7 @@ ${reviewsSection({ compact: true })}
     path: 'priser/',
     title: 'Priser på kosmetiske behandlinger | Clinic 360',
     active: 'priser',
-    description: 'Se priser på botox, filler, skinbooster, Profhilo, PRF, peeling, Skinpen, HydraFacial og fedtfrysning. Gratis forundersøgelse og 10 % velkomstrabat.',
+    description: 'Se priser på botox, filler, skinbooster, Profhilo, PRF, peeling, Skinpen, HydraFacial, fedtfrysning og laser. Gratis forundersøgelse og 10 % velkomstrabat.',
     ld: [faqLd(priceFaq)],
     body,
   });

@@ -40,6 +40,8 @@ PHOTOS = {
     "t-hydrafacial-2": ("2024_09_Design-uden-navn-35.png", [700], None),
     "t-skinpen-2": ("2024_09_Design-uden-navn-13.png", [700], None),
 }
+# t-laser-haar-480 og t-laser-kar-360 er lavet separat fra et 480x640-foto, klinikken sendte i november 2026
+# (hele billedet og et 360x270-udsnit (70, 110, 430, 380)). De ligger ikke på den gamle side og genskabes ikke her.
 
 # Før/efter: kildefil, opdeling ("lr" = venstre/højre, "tb" = top/bund), fokus-y (0-1) for portrætbeskæring
 BEFORE_AFTER = {
