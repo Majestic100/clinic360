@@ -604,6 +604,71 @@ ${pageHero({ eyebrow: 'Juridisk', title: 'Cookie- og privatlivspolitik' })}
   });
 }
 
+/* ---------------------------------------------------------------- Handelsbetingelser */
+
+// Klinikkens tekst fra den gamle clinic360.dk/handelsbetingelser/ (juni 2025). Det, vi har ændret, pakkes i rev():
+// i preview-bygget markeres det med gult, så klinikken kan godkende det. På den rigtige side vises teksten normalt.
+const rev = (html) => (process.env.PREVIEW === '1' ? `<ins class="review">${html}</ins>` : html);
+
+function terms() {
+  const preview = process.env.PREVIEW === '1';
+  const body = `
+${pageHero({ eyebrow: 'Juridisk', title: 'Handelsbetingelser' })}
+<section class="section section--tight">
+  <div class="container narrow prose">
+    ${preview ? '<p class="review-note"><strong>Til godkendelse:</strong> Tekst markeret med gult er ændret i forhold til handelsbetingelserne på den nuværende clinic360.dk, fordi hjemmesiden ikke længere tager imod betaling. Markeringen vises kun på denne forhåndsvisning.</p>' : ''}
+    <p>${rev(`Handelsbetingelserne gælder for ydelser og produkter fra ${site.legalName}, ${site.address.street}, ${site.address.zip} ${site.address.city}, CVR ${site.cvr}.`)}</p>
+    <h2 class="h3">Aftaleindgåelse</h2>
+    <p>Ved booking af en behandling eller tilmelding til en abonnementsløsning hos Clinic360.dk accepterer du samtidig vores gældende handelsbetingelser.</p>
+    <p>Alle priser er angivet i danske kroner og inkluderer moms.</p>
+    <h2 class="h3">Betaling</h2>
+    <p>${rev('Betaling sker i klinikken eller via vores bookingsystem.')}</p>
+    <p>Vi accepterer følgende betalingsmetoder: Visa, Mastercard og MobilePay.</p>
+    <p>Beløbet trækkes først ved bekræftelse af din booking eller ved påbegyndelse af abonnementet.</p>
+    <p>Ved abonnementer sker betalingen automatisk i den valgte abonnementsperiode.</p>
+    <p>Du modtager altid en kvittering via e-mail.</p>
+    <h2 class="h3">Abonnementer</h2>
+    <p>Ved tilmelding til et abonnement accepterer du løbende betaling, som sker automatisk via det valgte betalingskort.</p>
+    <p>Du kan til enhver tid opsige dit abonnement med den opsigelsesfrist, der er angivet ved tilmelding.</p>
+    <p>Opsigelsen træder i kraft ved udgangen af den aktuelle abonnementsperiode.</p>
+    <p>Det er dit ansvar at sikre, at dine betalingsoplysninger er opdaterede.</p>
+    <p>Ved manglende betaling forbeholder Clinic360.dk sig retten til at suspendere dine bookinger eller adgang til behandlinger, indtil betalingen er gennemført.</p>
+    <p>Vi tilbyder forskellige abonnementstyper, som varierer i antal inkluderede behandlinger og pris. Eventuelle bindingsperioder vil fremgå tydeligt ved tilmelding.</p>
+    <p>Efter bindingsperiodens udløb fortsætter abonnementet som en løbende måned-til-måned ordning, med mulighed for opsigelse i henhold til gældende vilkår.</p>
+    <h2 class="h3">Booking og afbud</h2>
+    <p>Behandlinger skal bookes online via vores <a href="${site.bookingUrl}" ${ext}>bookingsystem</a>.</p>
+    <p>Ved udeblivelse eller afbud mindre end 24 timer før aftalen forbeholder vi os retten til at opkræve det fulde beløb.</p>
+    <p>For behandlinger, der er inkluderet i et abonnement, gælder samme afbudsregler.</p>
+    <p>${rev('Manglende')} fremmøde vil betragtes som en benyttet behandling.</p>
+    <h2 class="h3">Fortrydelsesret</h2>
+    <p>Ved køb af fysiske produkter i klinikken gælder 14 dages fortrydelsesret fra modtagelsesdato.</p>
+    <p>Behandlinger og abonnementsløsninger er undtaget fortrydelsesret, da de anses som personlige ydelser og/eller tages i brug ved første booking.</p>
+    <p>Opsigelse af abonnementer kan ske ${rev('ved at kontakte os direkte')}.</p>
+    <p>Du er altid velkommen til at kontakte os med spørgsmål vedrørende din booking, abonnement eller betaling. Skriv til <a href="mailto:${site.email}">${site.email}</a>${rev(` eller ring på <a href="${site.phoneHref}">${site.phone}</a>`)}.</p>
+    <h2 class="h3">Ansvar og forbehold</h2>
+    <p>Vi tager forbehold for tastefejl, prisjusteringer og tekniske problemer på hjemmesiden.</p>
+    <p>Clinic360.dk kan ikke drages til ansvar for indirekte tab som følge af brug af vores tjenester.</p>
+    <h2 class="h3">Persondata</h2>
+    <p>Dine personlige oplysninger behandles i overensstemmelse med gældende databeskyttelseslovgivning.${rev(` Læs mere i vores <a href="${url('cookie-og-privatlivspolitik/')}">privatlivspolitik</a>.`)}</p>
+    <p>Vi videregiver aldrig dine oplysninger uden samtykke og gemmer kun data, der er nødvendige for at opretholde vores aftale med dig.</p>
+    <h2 class="h3">Klageadgang</h2>
+    <p>Hvis du ønsker at klage over en behandling eller et forløb, bedes du kontakte os via ovenstående kontaktoplysninger.</p>
+    <p>Hvis vi ikke når til en tilfredsstillende løsning, kan du kontakte:</p>
+    <p>Center for Klageløsning<br>Nævnenes Hus, Toldboden 2, 8800 Viborg<br><a href="https://www.naevneneshus.dk" ${ext}>www.naevneneshus.dk</a></p>
+    <h2 class="h3">Ændringer i handelsbetingelser</h2>
+    <p>Clinic360.dk forbeholder sig retten til at ændre handelsbetingelserne.</p>
+    <p>Ændringer træder i kraft, når de er offentliggjort på hjemmesiden.</p>
+  </div>
+</section>
+`;
+  return layout({
+    path: 'handelsbetingelser/',
+    title: 'Handelsbetingelser | Clinic 360',
+    description: 'Handelsbetingelser for booking, betaling, afbud, abonnementer og klageadgang hos Clinic 360 på Als.',
+    body,
+  });
+}
+
 function notFound() {
   const body = `
 ${pageHero({
@@ -625,6 +690,7 @@ export function allPages() {
     ['om-os/index.html', about()],
     ['kontakt/index.html', contact()],
     ['cookie-og-privatlivspolitik/index.html', privacy()],
+    ['handelsbetingelser/index.html', terms()],
     ['404.html', notFound()],
   ];
 }

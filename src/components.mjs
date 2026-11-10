@@ -186,6 +186,7 @@ export function footer() {
         <li><a href="${url('om-os/')}">Om os</a></li>
         <li><a href="${url('priser/')}">Priser</a></li>
         <li><a href="${url('cookie-og-privatlivspolitik/')}">Cookie- og privatlivspolitik</a></li>
+        <li><a href="${url('handelsbetingelser/')}">Handelsbetingelser</a></li>
       </ul>
     </div>
   </div>

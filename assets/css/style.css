@@ -115,6 +115,9 @@ em { font-style: italic; }
 .prose li { margin-bottom: 0.35em; }
 .prose li::marker { color: var(--mocha); }
 .prose a { color: var(--mocha-700); }
+/* Kun i preview-bygget: tekst klinikken skal godkende */
+ins.review { text-decoration: none; background: #fff3a8; color: #2a2620; padding: 0 2px; border-radius: 3px; }
+.review-note { padding: 14px 16px; border-radius: 10px; background: #fff3a8; color: #2a2620; }
 
 .link {
   display: inline-flex; align-items: center; gap: 8px;
